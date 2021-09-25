@@ -20,11 +20,17 @@ export default {
       accounts: state => state.account.accounts
     }),
     getElement() {
-      return this.accounts.find(account => {
+      let result = this.accounts.find(account => {
         if (account.id === this.accountId) {
-          return account
+          return account;
         }
-      })
+      });
+      return result !== undefined ? result : {
+        id: 0,
+        name: "Добавить",
+        type: "account-add",
+        icon: "far fa-plus-circle"
+      };
     }
   }
 }
@@ -36,7 +42,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
+  width: 120px;
+  height: 120px;
 }
 
 .account.account-asset {
@@ -49,6 +58,10 @@ export default {
 
 .account.account-expense {
   background: orange;
+}
+
+.account.account-add {
+  background: darkgray;
 }
 
 .account__icon {

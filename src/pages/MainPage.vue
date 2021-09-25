@@ -1,14 +1,32 @@
 <template>
-  <transactions-day-list
-      :transactionsDayList="transactionsDayList"
-  />
+  <div class="main-page">
+    <div class="main-page__column">
+      <accounts-list :name="'Доходы'" :accounts="revenues"/>
+      <accounts-list :name="'Счета'" :accounts="assets"/>
+      <accounts-list :name="'Расходы'" :accounts="expenses"/>
+    </div>
+    <div class="main-page__column">
+      <transactions-day-list
+          :transactionsDayList="transactionsDayList"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
 import TransactionsDayList from "@/components/TransactionsList";
+import AccountsList from "@/components/AccountsList";
+import {mapGetters} from "vuex";
 
 export default {
-  components: {TransactionsDayList},
+  components: {AccountsList, TransactionsDayList},
+  computed: {
+    ...mapGetters({
+      assets: 'account/getAssets',
+      revenues: 'account/getRevenues',
+      expenses: 'account/getExpenses'
+    })
+  },
   data() {
     return {
       transactionsDayList:
@@ -77,5 +95,12 @@ export default {
 </script>
 
 <style scoped>
+.main-page {
+  display: flex;
+  justify-content: center;
+}
 
+.main-page__column{
+  margin: 0 30px;
+}
 </style>

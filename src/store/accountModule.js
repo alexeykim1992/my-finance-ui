@@ -1,7 +1,3 @@
-// account-asset
-// account-revenue
-// account-expense
-
 export const accountModule = {
     state: () => ({
         accounts: [{
@@ -47,10 +43,19 @@ export const accountModule = {
         }
     },
     getters: {
-
+        getAccounts(state) {
+            return state.accounts;
+        },
+        getAssets(state) {
+            return state.accounts.filter(account => account.type === "account-asset");
+        },
+        getRevenues(state) {
+            return state.accounts.filter(account => account.type === "account-revenue");
+        },
+        getExpenses(state) {
+            return state.accounts.filter(account => account.type === "account-expense");
+        }
     },
-    mutations: {
-
-    },
+    mutations: {},
     namespaced: true
 }
