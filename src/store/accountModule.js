@@ -44,17 +44,8 @@ export const accountModule = {
 
     },
     getters: {
-        getAccounts(state, accountType) {
-            return state.accounts.filter(account => account.type === accountType);
-        },
-        getAssets(state) {
-            return state.accounts.filter(account => account.type === "account-asset");
-        },
-        getRevenues(state) {
-            return state.accounts.filter(account => account.type === "account-revenue");
-        },
-        getExpenses(state) {
-            return state.accounts.filter(account => account.type === "account-expense");
+        getAccounts: state => type => {
+            return state.accounts.filter(account => account.type === type);
         }
     },
     mutations: {

@@ -2,13 +2,13 @@
   <div class="account-list">
     <add-account-dialog
         v-model:show="dialogVisible"
-        :account-type="'account-asset'"
+        :account-type="type"
         @update:show="this.dialogVisible"
     />
     <h3 class="account-list__title">{{ name }}</h3>
     <div class="account-list__grid">
       <account
-          v-for="account in accounts"
+          v-for="account in accounts(type)"
           :account-id="account.id"/>
       <account :account-id="-1" @click="openDialog"/>
     </div>
@@ -18,6 +18,7 @@
 <script>
 
 import AddAccountDialog from "@/components/AddAccountDialog";
+import {mapGetters} from "vuex";
 
 export default {
   components: {AddAccountDialog},
@@ -31,15 +32,20 @@ export default {
       type: String,
       required: true
     },
-    accounts: {
-      type: Array,
+    type: {
+      type: String,
       required: true
     }
   },
   methods: {
     openDialog() {
       this.dialogVisible = true;
-    }
+    },
+  },
+  computed: {
+    ...mapGetters({
+      accounts: 'account/getAccounts'
+    })
   }
 }
 </script>
