@@ -1,0 +1,36 @@
+@import "variables";
+
+@mixin media($size: $xxl) {
+  @media (max-width: $size) {
+    @content;
+  }
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+
+  @include media($xl) {
+    max-width: 1140px;
+  }
+
+  @include media($lg) {
+    max-width: 960px;
+  }
+
+  @include media($md) {
+    max-width: 720px;
+  }
+
+  @include media($sm) {
+    max-width: 540px;
+  }
+
+  @include media($xsm){
+    max-width: 100%;
+  }
+}
+
+.row {
+  margin: 0 -15px;
+}
