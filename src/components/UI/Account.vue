@@ -9,6 +9,7 @@
 import {mapState} from 'vuex'
 
 export default {
+  name: "account",
   props: {
     accountId: {
       type: Number,
@@ -36,7 +37,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .account {
   padding: 15px;
   display: flex;
@@ -46,30 +47,30 @@ export default {
   overflow: hidden;
   width: 120px;
   height: 120px;
-}
 
-.account.account-asset {
-  background: yellow;
-}
+  &__icon {
+    font-size: 50px;
+    margin-bottom: 7px;
+  }
 
-.account.account-revenue {
-  background: lightblue;
-}
+  &__title {
+    font-size: 18px;
+  }
 
-.account.account-expense {
-  background: orange;
-}
+  &.account-asset{
+    background: yellow;
+  }
 
-.account.account-add {
-  background: darkgray;
-}
+  &.account-revenue {
+    background: lightblue;
+  }
 
-.account__icon {
-  font-size: 50px;
-  margin-bottom: 7px;
-}
+  &.account-expense {
+    background: orange;
+  }
 
-.account__title {
-  font-size: 18px;
+  &.account-add {
+    background: darkgray;
+  }
 }
 </style>
