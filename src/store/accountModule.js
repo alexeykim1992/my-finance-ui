@@ -41,10 +41,11 @@ export const accountModule = {
         fetchAccounts() {
 
         }
+
     },
     getters: {
-        getAccounts(state) {
-            return state.accounts;
+        getAccounts(state, accountType) {
+            return state.accounts.filter(account => account.type === accountType);
         },
         getAssets(state) {
             return state.accounts.filter(account => account.type === "account-asset");
@@ -56,6 +57,10 @@ export const accountModule = {
             return state.accounts.filter(account => account.type === "account-expense");
         }
     },
-    mutations: {},
+    mutations: {
+        addAccount(state, account) {
+            state.accounts.push(account);
+        }
+    },
     namespaced: true
 }
