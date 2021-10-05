@@ -35,17 +35,29 @@ export const accountModule = {
             name: "Основной",
             type: "account-revenue",
             icon: "far fa-briefcase"
+        }],
+        accountTypes: [{
+            name: "Доходы",
+            type: "account-revenue"
+        }, {
+            name: "Счета",
+            type: "account-asset"
+        }, {
+            name: "Расходы",
+            type: "account-expense"
         }]
     }),
     actions: {
         fetchAccounts() {
 
         }
-
     },
     getters: {
         getAccounts: state => type => {
             return state.accounts.filter(account => account.type === type);
+        },
+        getTypes(state) {
+            return state.accountTypes;
         }
     },
     mutations: {

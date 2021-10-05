@@ -21,23 +21,10 @@ import {mapGetters} from "vuex";
 
 export default {
   components: {AccountsList, TransactionsDayList},
-  data() {
-    return {
-      accountTypes: [{
-        name: "Доходы",
-        type: "account-revenue"
-      }, {
-        name: "Счета",
-        type: "account-asset"
-      }, {
-        name: "Расходы",
-        type: "account-expense"
-      }]
-    }
-  },
   computed: {
     ...mapGetters({
-      transactionsDayList: 'transaction/getTransactionDays'
+      transactionsDayList: 'transaction/getTransactionDays',
+      accountTypes: 'account/getTypes'
     })
   }
 }
