@@ -30,10 +30,10 @@ export default {
 <style scoped>
 .transaction {
   display: grid;
-  grid-template-columns: 120px 250px 120px;
+  grid-template-columns: 120px 1fr 120px;
   border: 1px solid darkgray;
   border-bottom: none;
-  width: fit-content;
+  width: 100%;
 }
 
 .transaction_info {

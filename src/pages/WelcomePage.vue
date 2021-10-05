@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     Добро пожаловать на MyFinance
   </div>
 </template>

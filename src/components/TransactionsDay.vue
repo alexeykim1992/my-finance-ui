@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 .transactions-day {
-  width: fit-content;
+  width: 500px;
   margin: 20px 0;
 }
 

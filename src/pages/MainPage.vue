@@ -1,5 +1,5 @@
 <template>
-  <div class="main-page">
+  <div class="container main-page">
     <div class="main-page__column">
       <accounts-list
           v-for="at in accountTypes"
@@ -30,13 +30,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .main-page {
   display: flex;
   justify-content: center;
-}
 
-.main-page__column {
-  margin: 0 30px;
+  &__column {
+    margin: 0 30px;
+  }
 }
 </style>
