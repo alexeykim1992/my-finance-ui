@@ -1,3 +1,5 @@
+import {accountModule} from "@/store/accountModule";
+
 export const transactionModule = {
     state: () => ({
         transactionDays: [{
@@ -7,17 +9,23 @@ export const transactionModule = {
                     id: 1,
                     from: 1,
                     to: 2,
-                    value: -100,
+                    value: 100,
                     description: "покупки в магазине"
                 }, {
                     id: 2,
                     from: 3,
                     to: 4,
-                    value: -10,
+                    value: 10,
                     description: "на работу"
                 }, {
                     id: 3,
                     from: 7,
+                    to: 1,
+                    value: 1000,
+                    description: "Зарплата"
+                }, {
+                    id: 4,
+                    from: 3,
                     to: 1,
                     value: 1000,
                     description: "Зарплата"
@@ -28,13 +36,13 @@ export const transactionModule = {
                 id: 1,
                 from: 1,
                 to: 2,
-                value: -75,
+                value: 75,
                 description: "покупки в магазине"
             }, {
                 id: 2,
                 from: 1,
                 to: 4,
-                value: -30,
+                value: 30,
                 description: "на работу"
             }]
         }, {
@@ -43,19 +51,19 @@ export const transactionModule = {
                 id: 1,
                 from: 1,
                 to: 2,
-                value: -55,
+                value: 55,
                 description: "покупки в магазине"
             }, {
                 id: 2,
                 from: 3,
                 to: 5,
-                value: -15,
+                value: 15,
                 description: "Интернет"
             }, {
                 id: 3,
                 from: 1,
                 to: 6,
-                value: -300,
+                value: 300,
                 description: "Курсы"
             }]
         }]
@@ -63,13 +71,20 @@ export const transactionModule = {
     getters: {
         getTransactionDays(state) {
             return state.transactionDays;
+        },
+        getTransactionType: (state, getters, rootState, rootGetters) => transaction => {
+            let source = rootGetters["account/getAccount"](transaction.from);
+            let destination = rootGetters["account/getAccount"](transaction.to);
+            if (source.type === 'account-revenue' && destination.type === 'account-asset') return 'value-revenue';
+            if (source.type === 'account-asset' && destination.type === 'account-expense') return 'value-expense';
+            return 'value-asset'
         }
     },
     mutations: {
         addTransaction(state, input) {
             let day = state.transactionDays.find(transactionDay =>
                 transactionDay.date.toLocaleString() === input.date.toLocaleString());
-            if(day === undefined){
+            if (day === undefined) {
                 state.transactionDays.push({
                     date: input.date,
                     transactions: [input.transaction]

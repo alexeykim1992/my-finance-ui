@@ -58,6 +58,9 @@ export const accountModule = {
         },
         getTypes(state) {
             return state.accountTypes;
+        },
+        getAccount: state => id => {
+            return state.accounts.find(account => account.id === id);
         }
     },
     mutations: {

@@ -1,13 +1,13 @@
 <template>
   <div class="transaction">
     <account :accountId="transaction.from"></account>
-    <div class="transaction_info">
+    <div class="transaction__info">
       <div
-          class="transaction_value"
-          :class="transaction.value > 0 ? 'value-revenue' : 'value-expires'">
+          class="transaction__value"
+          :class="transactionType">
         {{ transaction.value }}
       </div>
-      <p class="transaction_description">{{ transaction.description }}</p>
+      <p class="transaction__description">{{ transaction.description }}</p>
     </div>
     <account :accountId="transaction.to"></account>
   </div>
@@ -15,6 +15,7 @@
 
 <script>
 import Account from "@/components/UI/Account";
+import {mapGetters} from "vuex";
 
 export default {
   components: {Account},
@@ -23,43 +24,64 @@ export default {
       type: Object,
       required: true
     }
+  },
+  computed: {
+    transactionType() {
+      return this.getTransactionType(this.transaction)
+    },
+    ...mapGetters({
+      getTransactionType: 'transaction/getTransactionType'
+    })
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .transaction {
   display: grid;
   grid-template-columns: 120px 1fr 120px;
   border: 1px solid darkgray;
   border-bottom: none;
   width: 100%;
-}
 
-.transaction_info {
-  background: antiquewhite;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-}
+  &__info {
+    background: antiquewhite;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
 
-.transaction_value {
-  font-size: 30px;
-  font-weight: 800;
-}
+  &__value {
+    font-size: 30px;
+    font-weight: 800;
 
-.transaction_value.value-revenue {
-  color: green;
-}
+    &.value-asset {
+      color: #646464;
+    }
 
-.transaction_value.value-expires {
-  color: red;
-}
+    &.value-revenue {
+      color: green;
 
-.transaction_description {
-  font-size: 16px;
-  color: gray;
+      &:before {
+        content: "+";
+      }
+    }
+
+    &.value-expense {
+      color: red;
+
+      &:before {
+        content: "-";
+      }
+
+    }
+  }
+
+  &__description {
+    font-size: 16px;
+    color: gray;
+  }
 }
 </style>
