@@ -1,7 +1,7 @@
 export const transactionModule = {
     state: () => ({
         transactionDays: [{
-            date: new Date('2021-09-25'),
+            date: new Date('2021-09-27'),
             transactions: [
                 {
                     id: 1,
@@ -23,7 +23,7 @@ export const transactionModule = {
                     description: "Зарплата"
                 }]
         }, {
-            date: new Date('2021-09-27'),
+            date: new Date('2021-09-25'),
             transactions: [{
                 id: 1,
                 from: 1,
@@ -63,6 +63,11 @@ export const transactionModule = {
     getters: {
         getTransactionDays(state) {
             return state.transactionDays;
+        }
+    },
+    mutations: {
+        addTransaction(state, transaction) {
+            console.log(transaction);
         }
     },
     namespaced: true
