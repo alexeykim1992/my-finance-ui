@@ -42,7 +42,7 @@ export default {
       sourceId: 0,
       destinationId: 0,
       date: '',
-      value: 0,
+      value: '',
       description: '',
       isShowSources: false,
       isShowDestinations: false
@@ -54,15 +54,17 @@ export default {
     }),
     createTransaction() {
       this.addTransaction({
-        id: Date.now(),
-        date: this.date,
-        from: this.sourceId,
-        to: this.destinationId,
-        value: this.value,
-        description: this.description
+        date: new Date(this.date),
+        transaction: {
+          id: Date.now(),
+          from: this.sourceId,
+          to: this.destinationId,
+          value: this.value,
+          description: this.description
+        }
       })
       this.date = '2021-09-27';
-      this.value = 0;
+      this.value = '';
       this.description = '';
     },
     toggleSources() {
@@ -71,7 +73,7 @@ export default {
     },
     toggleDestinations() {
       this.isShowDestinations = !this.isShowDestinations;
-      this.isShowSources=false;
+      this.isShowSources = false;
     },
     selectSource(accountId) {
       this.sourceId = accountId;

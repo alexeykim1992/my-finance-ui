@@ -66,8 +66,17 @@ export const transactionModule = {
         }
     },
     mutations: {
-        addTransaction(state, transaction) {
-            console.log(transaction);
+        addTransaction(state, input) {
+            let day = state.transactionDays.find(transactionDay =>
+                transactionDay.date.toLocaleString() === input.date.toLocaleString());
+            if(day === undefined){
+                state.transactionDays.push({
+                    date: input.date,
+                    transactions: [input.transaction]
+                });
+            } else {
+                day.transactions.push(input.transaction);
+            }
         }
     },
     namespaced: true
