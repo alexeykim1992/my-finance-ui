@@ -41,7 +41,7 @@ export default {
     return {
       sourceId: 0,
       destinationId: 0,
-      date: '',
+      date: this.today,
       value: '',
       description: '',
       isShowSources: false,
@@ -63,7 +63,7 @@ export default {
           description: this.description
         }
       })
-      this.date = '2021-09-27';
+      this.date = this.today;
       this.value = '';
       this.description = '';
     },
@@ -86,7 +86,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getAccounts: 'account/getAccounts'
+      getAccount: 'account/getAccount',
+      getAccounts: 'account/getAccounts',
+      today: 'date/getToday'
     }),
     getSources() {
       return [
@@ -95,14 +97,23 @@ export default {
       ]
     },
     getDestinations() {
-      return [
+      let result = [
         ...this.getAccounts('account-asset'),
         ...this.getAccounts('account-expense')
-      ]
+      ];
+      let source = this.getAccount(this.sourceId);
+      if (source !== undefined) {
+        if (source.type === 'account-revenue')
+          result = this.getAccounts('account-asset');
+      }
+      if (result.find(account => account.id === this.destinationId) === undefined) {
+        this.destinationId = result[0].id;
+      }
+      return result;
     }
   },
   mounted() {
-    this.date = '2021-09-27';
+    this.date = this.today;
     this.sourceId = this.getSources[0].id;
     this.destinationId = this.getDestinations[0].id;
   }
