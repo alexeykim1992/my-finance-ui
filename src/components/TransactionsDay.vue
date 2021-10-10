@@ -4,13 +4,13 @@
     <transaction
         v-for="transaction in transactionsDay.transactions"
         :transaction="transaction"
-        :key="transaction.id"
-    />
-    <div class="transactions-day__sum"
-         :class="dayBalance > 0 ? 'sum-profit' : 'sum-loss'"
-    >
-      <span class="transactions-day__sum-span">Итого:</span>
-      {{ dayBalance }}
+        :key="transaction.id"/>
+    <div class="transactions-day__sum">
+      <span class="transactions-day__sum-title">Итого:</span>
+      <span class="transactions-day__sum-value"
+            :class="dayBalanceStyle">
+        {{ dayBalance }}
+      </span>
     </div>
   </div>
 </template>
@@ -37,6 +37,10 @@ export default {
     dayBalance() {
       return this.getDayBalance(this.transactionsDay.date);
     },
+    dayBalanceStyle() {
+      return this.dayBalance > 0 ? 'sum-profit'
+          : this.dayBalance < 0 ? 'sum-loss' : '';
+    },
     ...mapGetters({
       getDayBalance: "transaction/getDayBalance"
     })
@@ -44,38 +48,48 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .transactions-day {
   width: 500px;
   margin: 20px 0;
-}
 
-.transactions-day__date {
-  text-align: center;
-  font-size: 25px;
-  font-weight: 600;
-  margin: 15px 15px 10px;
-}
+  &__date {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    margin: 15px 15px 10px;
+  }
 
-.transactions-day__sum {
-  background: bisque;
-  padding: 15px;
-  text-align: right;
-  font-size: 20px;
-  font-weight: 600;
-  border: 1px solid darkgray;
-}
+  &__sum {
+    background: bisque;
+    padding: 15px;
+    text-align: right;
+    font-size: 20px;
+    font-weight: 600;
+    border: 1px solid darkgray;
 
-.transactions-day__sum.sum-profit {
-  color: green;
-}
+    &-title {
+      margin-right: 15px;
+    }
 
-.transactions-day__sum.sum-loss {
-  color: red;
-}
+    &-value {
+      &.sum-profit {
+        color: green;
 
-.transactions-day__sum-span {
-  font-weight: 400;
-  color: black;
+        &:before {
+          content: "+";
+        }
+      }
+
+      &.sum-loss {
+        color: red;
+      }
+
+      &-span {
+        font-weight: 400;
+        color: black;
+      }
+    }
+  }
 }
 </style>
