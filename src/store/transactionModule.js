@@ -76,9 +76,22 @@ export const transactionModule = {
         getTransactionType: (state, getters, rootState, rootGetters) => transaction => {
             let source = rootGetters["account/getAccount"](transaction.from);
             let destination = rootGetters["account/getAccount"](transaction.to);
-            if (source.type === 'account-revenue' && destination.type === 'account-asset') return 'value-revenue';
-            if (source.type === 'account-asset' && destination.type === 'account-expense') return 'value-expense';
-            return 'value-asset'
+            if (source.type === 'account-revenue' && destination.type === 'account-asset') return 1;
+            if (source.type === 'account-asset' && destination.type === 'account-expense') return -1;
+            return 0;
+        },
+        getTransactionStyle: (state, getters) => transaction => {
+            let type = getters.getTransactionType(transaction);
+            return type === 0 ? 'value-asset'
+                : type > 0 ? 'value-revenue' : 'value-expense';
+        },
+        getDayBalance: (state, getters) => input => {
+            let search = state.transactionDays.find(day =>
+                day.date.toLocaleString() === input.toLocaleString());
+            if (search === undefined) return '-';
+            return search.transactions
+                .map(item => item.value * getters.getTransactionType(item))
+                .reduce((a, b) => a + b);
         }
     },
     mutations: {

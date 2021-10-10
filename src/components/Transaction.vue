@@ -27,10 +27,10 @@ export default {
   },
   computed: {
     transactionType() {
-      return this.getTransactionType(this.transaction)
+      return this.getTransactionStyle(this.transaction);
     },
     ...mapGetters({
-      getTransactionType: 'transaction/getTransactionType'
+      getTransactionStyle: 'transaction/getTransactionStyle'
     })
   }
 }

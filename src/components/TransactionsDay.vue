@@ -7,16 +7,17 @@
         :key="transaction.id"
     />
     <div class="transactions-day__sum"
-         :class="transactionsSum > 0 ? 'sum-profit' : 'sum-loss'"
+         :class="dayBalance > 0 ? 'sum-profit' : 'sum-loss'"
     >
       <span class="transactions-day__sum-span">Итого:</span>
-      {{ transactionsSum }}
+      {{ dayBalance }}
     </div>
   </div>
 </template>
 
 <script>
 import Transaction from "@/components/Transaction";
+import {mapGetters} from "vuex";
 
 export default {
   components: {Transaction},
@@ -33,11 +34,12 @@ export default {
     }
   },
   computed: {
-    transactionsSum() {
-      return this.transactionsDay.transactions
-          .map(transaction => transaction.value)
-          .reduce((a, b) => a + b);
-    }
+    dayBalance() {
+      return this.getDayBalance(this.transactionsDay.date);
+    },
+    ...mapGetters({
+      getDayBalance: "transaction/getDayBalance"
+    })
   }
 }
 </script>
