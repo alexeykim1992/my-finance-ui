@@ -1,5 +1,3 @@
-import {accountModule} from "@/store/accountModule";
-
 export const transactionModule = {
     state: () => ({
         transactionDays: [{
@@ -70,7 +68,10 @@ export const transactionModule = {
     }),
     getters: {
         getTransactionDays(state) {
-            return state.transactionDays;
+            return state.transactionDays.sort((aDay, bDay) => {
+                return aDay.date === bDay.date ? 0
+                    : aDay.date < bDay.date ? 1 : -1;
+            });
         },
         getTransactionType: (state, getters, rootState, rootGetters) => transaction => {
             let source = rootGetters["account/getAccount"](transaction.from);
