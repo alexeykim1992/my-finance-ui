@@ -73,6 +73,13 @@ export const transactionModule = {
                     : aDay.date < bDay.date ? 1 : -1;
             });
         },
+        getMonthByDate: state => date => {
+            return state.transactionDays
+                .filter(day => day.date.getFullYear() === date.getFullYear()
+                    && day.date.getMonth() === date.getMonth())
+                .map(day => day.transactions)
+                .reduce((a, b) => [...a, ...b]);
+        },
         getTransactionType: (state, getters, rootState, rootGetters) => transaction => {
             let source = rootGetters["account/getAccount"](transaction.from);
             let destination = rootGetters["account/getAccount"](transaction.to);

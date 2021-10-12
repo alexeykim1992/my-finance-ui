@@ -57,7 +57,7 @@ export default {
   &__title {
     font-size: 25px;
     margin-left: 30px;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
   }
 
   &__grid {
