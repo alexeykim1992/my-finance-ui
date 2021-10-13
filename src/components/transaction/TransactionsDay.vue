@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Transaction from "@/components/Transaction";
+import Transaction from "@/components/transaction/Transaction";
 import {mapGetters} from "vuex";
 
 export default {

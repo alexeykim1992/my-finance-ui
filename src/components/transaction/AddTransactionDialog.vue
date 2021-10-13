@@ -31,9 +31,9 @@
 
 <script>
 import {mapGetters, mapMutations} from "vuex";
-import Account from "@/components/UI/Account";
-import AccountsGrid from "@/components/AccountPicker";
-import AccountPicker from "@/components/AccountPicker";
+import Account from "@/components/account/Account";
+import AccountsGrid from "@/components/account/AccountPicker";
+import AccountPicker from "@/components/account/AccountPicker";
 
 export default {
   components: {AccountPicker, AccountsGrid, Account},

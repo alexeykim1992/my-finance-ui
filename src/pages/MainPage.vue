@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import TransactionsDayList from "@/components/TransactionsList";
-import AccountsList from "@/components/AccountsList";
 import {mapGetters} from "vuex";
-import AddTransactionDialog from "@/components/AddTransactionDialog";
+import TransactionsDayList from "@/components/transaction/TransactionsList";
+import AccountsList from "@/components/account/AccountsList";
+import AddTransactionDialog from "@/components/transaction/AddTransactionDialog";
 
 export default {
   components: {AddTransactionDialog, AccountsList, TransactionsDayList},

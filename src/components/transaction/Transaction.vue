@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Account from "@/components/UI/Account";
+import Account from "@/components/account/Account";
 import {mapGetters} from "vuex";
 
 export default {

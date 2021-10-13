@@ -17,11 +17,12 @@
 
 <script>
 
-import AddAccountDialog from "@/components/AddAccountDialog";
 import {mapGetters} from "vuex";
+import AddAccountDialog from "@/components/account/AddAccountDialog";
+import Account from "@/components/account/Account";
 
 export default {
-  components: {AddAccountDialog},
+  components: {AddAccountDialog, Account},
   data() {
     return {
       dialogVisible: false

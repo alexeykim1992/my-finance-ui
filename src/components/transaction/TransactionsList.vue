@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import TransactionsDay from "@/components/TransactionsDay";
+import TransactionsDay from "@/components/transaction/TransactionsDay";
 
 export default {
   components: {TransactionsDay},
