@@ -1,11 +1,10 @@
 <template>
   <custom-dialog
       v-model:show="show"
-      @update:show="this.$emit('update:show', false);"
-  >
+      @update:show="this.$emit('update:show', false);">
     <div class="add-account-dialog">
       <div class="add-account-dialog__header">
-        <h3 class="add-account-dialog__header-title">Добавить счет</h3>
+        <h3 class="add-account-dialog__header-title">Добавить {{ dialogTitle }}</h3>
         <a @click="this.$emit('update:show', false);">
           <i class="add-account-dialog__header-exit far fa-times-circle"></i>
         </a>
@@ -15,15 +14,12 @@
       <div class="add-account-dialog__icons-panel">
         <div class="add-account-dialog__icon"
              v-for="icon in icons"
-             @click="account.icon = icon"
-        >
+             @click="account.icon = icon">
           <i v-if="icon === account.icon"
              class="icon-selected"
-             :class="icon"
-          />
+             :class="[icon, this.accountType]"/>
           <i v-else
-             :class="icon"
-          />
+             :class="icon"/>
         </div>
       </div>
       <button class="add-account-dialog__button" @click="addItem">Выбрать</button>
@@ -55,10 +51,21 @@ export default {
       required: true
     }
   },
-  computed:{
+  computed: {
     ...mapGetters({
       icons: 'icon/getIcons'
-    })
+    }),
+    dialogTitle() {
+      if (this.accountType === 'account-revenue') {
+        return 'доход'
+      } else if (this.accountType === 'account-asset') {
+        return 'счёт'
+      } else if (this.accountType === 'account-expense') {
+        return 'расход'
+      } else {
+        return 'неизвестно'
+      }
+    }
   },
   methods: {
     ...mapMutations({
@@ -128,7 +135,20 @@ export default {
     }
 
     & .icon-selected {
-      background: orange;
+      background: gray;
+
+      &.account-revenue {
+        background: lightblue;
+      }
+
+      &.account-asset {
+        background: yellow;
+      }
+
+      &.account-expense {
+        background: orange;
+      }
+
     }
   }
 
