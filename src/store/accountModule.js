@@ -61,6 +61,31 @@ export const accountModule = {
         },
         getAccount: state => id => {
             return state.accounts.find(account => account.id === id);
+        },
+        getBalance: (state, getters) => (accountId, date) => {
+            let search = state.accounts.find(account => account.id === accountId);
+            if (search === undefined) {
+                return '-';
+            } else if (search.type === 'account-revenue') {
+                return getters.getCredit(accountId, date);
+            } else if (search.type === 'account-asset') {
+                return getters.getDebit(accountId, date)
+                    - getters.getCredit(accountId, date)
+            } else if (search.type === 'account-expense') {
+                return getters.getDebit(accountId, date);
+            }
+        },
+        getDebit: (state, getters, rootState, rootGetters) => (accountId, date) => {
+            return rootGetters["transaction/getMonthByDate"](date)
+                .filter(transaction => transaction.to === accountId)
+                .map(transaction => transaction.value)
+                .reduce((a, b) => a + b, 0);
+        },
+        getCredit: (state, getters, rootState, rootGetters) => (accountId, date) => {
+            return rootGetters["transaction/getMonthByDate"](date)
+                .filter(transaction => transaction.from === accountId)
+                .map(transaction => transaction.value)
+                .reduce((a, b) => a + b, 0);
         }
     },
     mutations: {
