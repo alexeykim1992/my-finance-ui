@@ -121,8 +121,11 @@ export default {
       ];
       let source = this.getAccount(this.newValue.from);
       if (source !== undefined) {
-        if (source.type === 'account-revenue')
+        if (source.type === 'account-revenue'){
           result = this.getAccounts('account-asset');
+        } else {
+          result = result.filter(account => account.id !== source.id);
+        }
       }
       if (result.find(account => account.id === this.newValue.to) === undefined) {
         this.newValue.to = result[0].id;
