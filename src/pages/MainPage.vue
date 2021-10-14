@@ -1,6 +1,6 @@
 <template>
   <div class="container main-page">
-    <add-transaction-dialog class="container main-page__add-dialog"/>
+    <transaction-dialog class="container main-page__add-dialog"/>
     <div class="main-page__column column-left">
       <accounts-list
           v-for="at in accountTypes"
@@ -19,10 +19,10 @@
 import {mapGetters} from "vuex";
 import TransactionsDayList from "@/components/transaction/TransactionsList";
 import AccountsList from "@/components/account/AccountsList";
-import AddTransactionDialog from "@/components/transaction/AddTransactionDialog";
+import TransactionDialog from "@/components/transaction/TransactionDialog";
 
 export default {
-  components: {AddTransactionDialog, AccountsList, TransactionsDayList},
+  components: {TransactionDialog, AccountsList, TransactionsDayList},
   computed: {
     ...mapGetters({
       transactionsDayList: 'transaction/getTransactionDays',

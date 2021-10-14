@@ -31,13 +31,13 @@ export const transactionModule = {
         }, {
             date: new Date('2021-09-25'),
             transactions: [{
-                id: 1,
+                id: 5,
                 from: 1,
                 to: 2,
                 value: 75,
                 description: "покупки в магазине"
             }, {
-                id: 2,
+                id: 6,
                 from: 1,
                 to: 4,
                 value: 30,
@@ -46,19 +46,19 @@ export const transactionModule = {
         }, {
             date: new Date('2021-09-23'),
             transactions: [{
-                id: 1,
+                id: 7,
                 from: 1,
                 to: 2,
                 value: 55,
                 description: "покупки в магазине"
             }, {
-                id: 2,
+                id: 8,
                 from: 3,
                 to: 5,
                 value: 15,
                 description: "Интернет"
             }, {
-                id: 3,
+                id: 9,
                 from: 1,
                 to: 6,
                 value: 300,
@@ -77,6 +77,11 @@ export const transactionModule = {
             return state.transactionDays
                 .filter(day => day.date.getFullYear() === date.getFullYear()
                     && day.date.getMonth() === date.getMonth())
+                .map(day => day.transactions)
+                .reduce((a, b) => [...a, ...b]);
+        },
+        getAllTransactions: state => {
+            return state.transactionDays
                 .map(day => day.transactions)
                 .reduce((a, b) => [...a, ...b]);
         },
@@ -112,6 +117,18 @@ export const transactionModule = {
                 });
             } else {
                 day.transactions.push(input.transaction);
+            }
+        },
+        editTransaction(state, input) {
+            let result = this.getters["transaction/getAllTransactions"]
+                .find(item => item.id === input.transaction.id);
+            if (result !== undefined) {
+                result.from = input.transaction.from;
+                result.to = input.transaction.to;
+                result.value = input.transaction.value;
+                result.description = input.transaction.description;
+            } else {
+                console.log('Транзакция не найдена');
             }
         }
     },

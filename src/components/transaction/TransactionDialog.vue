@@ -3,7 +3,7 @@
     <account-picker
         class="add-transaction-dialog__picker"
         :isShow="isShowSources"
-        :picked-account="sourceId"
+        :picked-account="newValue.from"
         :accounts="getSources"
         @toggleShow="toggleSources"
         @select-item="selectSource"
@@ -12,20 +12,20 @@
       <input type="date" placeholder="дата" v-model="date"
              class="add-transaction-dialog__form-input input-date"
              required>
-      <input type="number" placeholder="сумма" min="1" v-model="value"
+      <input type="number" placeholder="сумма" min="1" v-model="newValue.value"
              class="add-transaction-dialog__form-input input-value"
              required>
-      <input type="text" placeholder="описание" v-model="description"
+      <input type="text" placeholder="описание" v-model="newValue.description"
              class="add-transaction-dialog__form-input input-description">
     </div>
     <account-picker
         class="add-transaction-dialog__picker"
         :isShow="isShowDestinations"
-        :picked-account="destinationId"
+        :picked-account="newValue.to"
         :accounts="getDestinations"
         @toggleShow="toggleDestinations"
         @select-item="selectDestination"/>
-    <button class="add-transaction-dialog__button" @click="createTransaction">Добавить</button>
+    <button class="add-transaction-dialog__button" @click="createTransaction">{{ buttonTitle }}</button>
   </div>
 </template>
 
@@ -39,33 +39,48 @@ export default {
   components: {AccountPicker, AccountsGrid, Account},
   data() {
     return {
-      sourceId: 0,
-      destinationId: 0,
       date: this.today,
-      value: '',
-      description: '',
+      newValue: {
+        id: -1,
+        from: 0,
+        to: 0,
+        value: '',
+        description: ''
+      },
       isShowSources: false,
       isShowDestinations: false
     }
   },
+  props: {
+    transaction: {
+      type: Object,
+      default: null
+    }
+  },
   methods: {
     ...mapMutations({
-      addTransaction: 'transaction/addTransaction'
+      addTransaction: 'transaction/addTransaction',
+      editTransaction: 'transaction/editTransaction'
     }),
     createTransaction() {
-      this.addTransaction({
-        date: new Date(this.date),
-        transaction: {
-          id: Date.now(),
-          from: this.sourceId,
-          to: this.destinationId,
-          value: this.value,
-          description: this.description
+      if (this.newValue.value !== '' && this.date !== '') {
+        if (this.transaction === null) {
+          this.newValue.id = Date.now();
+          this.addTransaction({
+            date: new Date(this.date),
+            transaction: {...this.newValue}
+          });
+        } else {
+          this.editTransaction({
+            date: new Date(this.date),
+            transaction: {...this.newValue}
+          });
         }
-      })
-      this.date = this.today;
-      this.value = '';
-      this.description = '';
+        this.date = this.today;
+        this.newValue.value = '';
+        this.newValue.description = '';
+        this.$emit('update:show', false);
+      }
     },
     toggleSources() {
       this.isShowSources = !this.isShowSources;
@@ -76,13 +91,13 @@ export default {
       this.isShowSources = false;
     },
     selectSource(accountId) {
-      this.sourceId = accountId;
+      this.newValue.from = accountId;
       this.isShowSources = false;
     },
     selectDestination(accountId) {
-      this.destinationId = accountId;
+      this.newValue.to = accountId;
       this.isShowDestinations = false;
-    }
+    },
   },
   computed: {
     ...mapGetters({
@@ -90,6 +105,9 @@ export default {
       getAccounts: 'account/getAccounts',
       today: 'date/getToday'
     }),
+    buttonTitle() {
+      return this.transaction === null ? 'Добавить' : 'Изменить';
+    },
     getSources() {
       return [
         ...this.getAccounts('account-revenue'),
@@ -101,21 +119,25 @@ export default {
         ...this.getAccounts('account-asset'),
         ...this.getAccounts('account-expense')
       ];
-      let source = this.getAccount(this.sourceId);
+      let source = this.getAccount(this.newValue.from);
       if (source !== undefined) {
         if (source.type === 'account-revenue')
           result = this.getAccounts('account-asset');
       }
-      if (result.find(account => account.id === this.destinationId) === undefined) {
-        this.destinationId = result[0].id;
+      if (result.find(account => account.id === this.newValue.to) === undefined) {
+        this.newValue.to = result[0].id;
       }
       return result;
     }
   },
   mounted() {
     this.date = this.today;
-    this.sourceId = this.getSources[0].id;
-    this.destinationId = this.getDestinations[0].id;
+    if (this.transaction === null) {
+      this.newValue.from = this.getSources[0].id;
+      this.newValue.to = this.getDestinations[0].id;
+    } else {
+      this.newValue = {...this.transaction};
+    }
   }
 }
 </script>
@@ -158,6 +180,14 @@ export default {
     font-weight: 600;
     text-transform: uppercase;
     border: 1px solid darkgray;
+
+    &:hover{
+      background: lightgray;
+    }
+
+    &:active{
+      background: darkgray;
+    }
   }
 
   &__picker {

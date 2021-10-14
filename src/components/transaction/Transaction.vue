@@ -1,5 +1,10 @@
 <template>
-  <div class="transaction">
+  <edit-transaction-dialog
+      :isShowDialog="isShowEdit"
+      :transaction="transaction"
+      @update:show="hideEditDialog"
+  />
+  <div class="transaction" @click="showEditDialog">
     <account :accountId="transaction.from"></account>
     <div class="transaction__info">
       <div
@@ -16,9 +21,15 @@
 <script>
 import Account from "@/components/account/Account";
 import {mapGetters} from "vuex";
+import EditTransactionDialog from "@/components/transaction/EditTransactionDialog";
 
 export default {
-  components: {Account},
+  components: {EditTransactionDialog, Account},
+  data() {
+    return {
+      isShowEdit: false
+    }
+  },
   props: {
     transaction: {
       type: Object,
@@ -32,6 +43,14 @@ export default {
     ...mapGetters({
       getTransactionStyle: 'transaction/getTransactionStyle'
     })
+  },
+  methods: {
+    showEditDialog() {
+      this.isShowEdit = true;
+    },
+    hideEditDialog() {
+      this.isShowEdit = false;
+    }
   }
 }
 </script>
@@ -43,6 +62,13 @@ export default {
   border: 1px solid darkgray;
   border-bottom: none;
   width: 100%;
+
+  &:hover{
+    position: relative;
+    z-index: 1;
+    border: 1px solid blue;
+    box-shadow: 0 0 7px 4px rgba(0, 0, 255, 0.4);
+  }
 
   &__info {
     background: antiquewhite;
