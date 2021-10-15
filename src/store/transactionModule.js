@@ -1,89 +1,93 @@
 export const transactionModule = {
     state: () => ({
-        transactionDays: [{
+        transactions: [{
+            id: 1,
             date: new Date('2021-09-27'),
-            transactions: [
-                {
-                    id: 1,
-                    from: 1,
-                    to: 2,
-                    value: 100,
-                    description: "покупки в магазине"
-                }, {
-                    id: 2,
-                    from: 3,
-                    to: 4,
-                    value: 10,
-                    description: "на работу"
-                }, {
-                    id: 3,
-                    from: 7,
-                    to: 1,
-                    value: 1000,
-                    description: "Зарплата"
-                }, {
-                    id: 4,
-                    from: 3,
-                    to: 1,
-                    value: 1000,
-                    description: "Зарплата"
-                }]
+            from: 1,
+            to: 2,
+            value: 100,
+            description: "покупки в магазине"
         }, {
+            id: 2,
             date: new Date('2021-09-25'),
-            transactions: [{
-                id: 5,
-                from: 1,
-                to: 2,
-                value: 75,
-                description: "покупки в магазине"
-            }, {
-                id: 6,
-                from: 1,
-                to: 4,
-                value: 30,
-                description: "на работу"
-            }]
+            from: 3,
+            to: 4,
+            value: 10,
+            description: "на работу"
         }, {
+            id: 3,
+            date: new Date('2021-09-27'),
+            from: 7,
+            to: 1,
+            value: 1000,
+            description: "Зарплата"
+        }, {
+            id: 4,
+            date: new Date('2021-09-27'),
+            from: 3,
+            to: 1,
+            value: 1000,
+            description: "Зарплата"
+        }, {
+            id: 5,
             date: new Date('2021-09-23'),
-            transactions: [{
-                id: 7,
-                from: 1,
-                to: 2,
-                value: 55,
-                description: "покупки в магазине"
-            }, {
-                id: 8,
-                from: 3,
-                to: 5,
-                value: 15,
-                description: "Интернет"
-            }, {
-                id: 9,
-                from: 1,
-                to: 6,
-                value: 300,
-                description: "Курсы"
-            }]
+            from: 1,
+            to: 2,
+            value: 75,
+            description: "покупки в магазине"
+        }, {
+            id: 6,
+            date: new Date('2021-09-23'),
+            from: 1,
+            to: 4,
+            value: 30,
+            description: "на работу"
+        }, {
+            id: 7,
+            date: new Date('2021-09-23'),
+            from: 1,
+            to: 2,
+            value: 55,
+            description: "покупки в магазине"
+        }, {
+            id: 8,
+            date: new Date('2021-09-25'),
+            from: 3,
+            to: 5,
+            value: 15,
+            description: "Интернет"
+        }, {
+            id: 9,
+            date: new Date('2021-09-25'),
+            from: 1,
+            to: 6,
+            value: 300,
+            description: "Курсы"
         }]
     }),
     getters: {
         getTransactionDays(state) {
-            return state.transactionDays.sort((aDay, bDay) => {
-                return aDay.date === bDay.date ? 0
-                    : aDay.date < bDay.date ? 1 : -1;
-            });
+            let days = [];
+            state.transactions
+                .sort((aTr, bTr) =>
+                    aTr.date < bTr.date ? 1 : aTr.date > bTr.date ? -1
+                        : aTr.id > bTr.id ? 1 : aTr.id < bTr.id ? -1 : 0)
+                .forEach(transaction => {
+                    let search = days.find(day =>
+                        day.date.toLocaleString() === transaction.date.toLocaleString());
+                    if (search === undefined) {
+                        days.push({date: transaction.date, transactions: [transaction]})
+                    } else {
+                        search.transactions.push(transaction);
+                    }
+                });
+            return days;
         },
         getMonthByDate: state => date => {
-            return state.transactionDays
-                .filter(day => day.date.getFullYear() === date.getFullYear()
-                    && day.date.getMonth() === date.getMonth())
-                .map(day => day.transactions)
-                .reduce((a, b) => [...a, ...b]);
-        },
-        getAllTransactions: state => {
-            return state.transactionDays
-                .map(day => day.transactions)
-                .reduce((a, b) => [...a, ...b]);
+            return state.transactions
+                .filter(transaction =>
+                    transaction.date.getFullYear() === date.getFullYear() &&
+                    transaction.date.getMonth() === date.getMonth());
         },
         getTransactionType: (state, getters, rootState, rootGetters) => transaction => {
             let source = rootGetters["account/getAccount"](transaction.from);
@@ -98,35 +102,27 @@ export const transactionModule = {
                 : type > 0 ? 'value-revenue' : 'value-expense';
         },
         getDayBalance: (state, getters) => input => {
-            let search = state.transactionDays.find(day =>
-                day.date.toLocaleString() === input.toLocaleString());
-            if (search === undefined) return '-';
-            return search.transactions
+            return state.transactions
+                .filter(transaction => transaction.date.toLocaleString() === input.toLocaleString())
                 .map(item => item.value * getters.getTransactionType(item))
-                .reduce((a, b) => a + b);
+                .reduce((a, b) => a + b, 0);
         }
     },
     mutations: {
         addTransaction(state, input) {
-            let day = state.transactionDays.find(transactionDay =>
-                transactionDay.date.toLocaleString() === input.date.toLocaleString());
-            if (day === undefined) {
-                state.transactionDays.push({
-                    date: input.date,
-                    transactions: [input.transaction]
-                });
-            } else {
-                day.transactions.push(input.transaction);
-            }
+            input.date = new Date(input.date);
+            state.transactions.push(input);
         },
         editTransaction(state, input) {
-            let result = this.getters["transaction/getAllTransactions"]
-                .find(item => item.id === input.transaction.id);
+            let result = state.transactions
+                .find(transaction => transaction.id === input.id);
             if (result !== undefined) {
-                result.from = input.transaction.from;
-                result.to = input.transaction.to;
-                result.value = input.transaction.value;
-                result.description = input.transaction.description;
+                result.date = new Date(input.date);
+                result.from = input.from;
+                result.to = input.to;
+                result.value = input.value;
+                result.description = input.description;
+                console.log(result)
             } else {
                 console.log('Транзакция не найдена');
             }

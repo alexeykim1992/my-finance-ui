@@ -9,7 +9,7 @@
         @select-item="selectSource"
     />
     <div class="add-transaction-dialog__form">
-      <input type="date" placeholder="дата" v-model="date"
+      <input type="date" placeholder="дата" v-model="newValue.date"
              class="add-transaction-dialog__form-input input-date"
              required>
       <input type="number" placeholder="сумма" min="1" v-model="newValue.value"
@@ -39,9 +39,9 @@ export default {
   components: {AccountPicker, AccountsGrid, Account},
   data() {
     return {
-      date: this.today,
       newValue: {
         id: -1,
+        date: this.today,
         from: 0,
         to: 0,
         value: '',
@@ -66,15 +66,9 @@ export default {
       if (this.newValue.value !== '' && this.date !== '') {
         if (this.transaction === null) {
           this.newValue.id = Date.now();
-          this.addTransaction({
-            date: new Date(this.date),
-            transaction: {...this.newValue}
-          });
+          this.addTransaction({...this.newValue});
         } else {
-          this.editTransaction({
-            date: new Date(this.date),
-            transaction: {...this.newValue}
-          });
+          this.editTransaction({...this.newValue});
         }
         this.date = this.today;
         this.newValue.value = '';
@@ -103,7 +97,8 @@ export default {
     ...mapGetters({
       getAccount: 'account/getAccount',
       getAccounts: 'account/getAccounts',
-      today: 'date/getToday'
+      today: 'date/getToday',
+      getDate: 'date/getDate'
     }),
     buttonTitle() {
       return this.transaction === null ? 'Добавить' : 'Изменить';
@@ -121,7 +116,7 @@ export default {
       ];
       let source = this.getAccount(this.newValue.from);
       if (source !== undefined) {
-        if (source.type === 'account-revenue'){
+        if (source.type === 'account-revenue') {
           result = this.getAccounts('account-asset');
         } else {
           result = result.filter(account => account.id !== source.id);
@@ -134,12 +129,13 @@ export default {
     }
   },
   mounted() {
-    this.date = this.today;
     if (this.transaction === null) {
+      this.newValue.date = this.today;
       this.newValue.from = this.getSources[0].id;
       this.newValue.to = this.getDestinations[0].id;
     } else {
       this.newValue = {...this.transaction};
+      this.newValue.date = this.getDate(this.newValue.date);
     }
   }
 }
@@ -184,11 +180,11 @@ export default {
     text-transform: uppercase;
     border: 1px solid darkgray;
 
-    &:hover{
+    &:hover {
       background: lightgray;
     }
 
-    &:active{
+    &:active {
       background: darkgray;
     }
   }
