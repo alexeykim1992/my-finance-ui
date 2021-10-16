@@ -89,8 +89,17 @@ export const accountModule = {
         }
     },
     mutations: {
-        addAccount(state, account) {
-            state.accounts.push(account);
+        addAccount(state, input) {
+            state.accounts.push(input);
+        },
+        editAccount(state, input) {
+            let search = state.accounts.find(account => account.id === input.id);
+            if (search !== undefined) {
+                search.name = input.name;
+                search.icon = input.icon;
+            } else {
+                console.log('Счет не найден');
+            }
         }
     },
     namespaced: true

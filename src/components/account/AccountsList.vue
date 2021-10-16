@@ -1,16 +1,17 @@
 <template>
   <div class="account-list">
     <account-dialog
-        v-model:show="dialogVisible"
+        v-model:show="isShowDialog"
         :account-type="type"
-        @update:show="dialogVisible"
-    />
+        :account="currentAccount"
+        @update:show="isShowDialog"/>
     <h3 class="account-list__title">{{ name }}</h3>
     <div class="account-list__grid">
       <account-balance
           v-for="account in accounts(type)"
-          :account-id="account.id"/>
-      <account :account-id="-1" @click="openDialog"/>
+          :account-id="account.id"
+          @click="openEditDialog(account.id)"/>
+      <account :account-id="-1" @click="openCreateDialog"/>
     </div>
   </div>
 </template>
@@ -26,7 +27,8 @@ export default {
   components: {AccountDialog, Account, AccountBalance},
   data() {
     return {
-      dialogVisible: false
+      isShowDialog: false,
+      currentAccount: null
     }
   },
   props: {
@@ -40,13 +42,19 @@ export default {
     }
   },
   methods: {
-    openDialog() {
-      this.dialogVisible = true;
+    openCreateDialog() {
+      this.currentAccount = null;
+      this.isShowDialog = true;
     },
+    openEditDialog(accountId) {
+      this.currentAccount = this.getAccount(accountId);
+      this.isShowDialog = true;
+    }
   },
   computed: {
     ...mapGetters({
-      accounts: 'account/getAccounts'
+      accounts: 'account/getAccounts',
+      getAccount: 'account/getAccount'
     })
   }
 }

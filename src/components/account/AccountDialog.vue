@@ -4,7 +4,7 @@
       @update:show="this.$emit('update:show', false);">
     <div class="add-account-dialog">
       <div class="add-account-dialog__header">
-        <h3 class="add-account-dialog__header-title">Добавить {{ dialogTitle }}</h3>
+        <h3 class="add-account-dialog__header-title">{{ dialogTitle }}</h3>
         <a @click="this.$emit('update:show', false);">
           <i class="add-account-dialog__header-exit far fa-times-circle"></i>
         </a>
@@ -22,7 +22,7 @@
              :class="icon"/>
         </div>
       </div>
-      <button class="add-account-dialog__button" @click="addItem">Выбрать</button>
+      <button class="add-account-dialog__button" @click="commit">{{ buttonTitle }}</button>
     </div>
   </custom-dialog>
 </template>
@@ -60,36 +60,57 @@ export default {
       icons: 'icon/getIcons'
     }),
     dialogTitle() {
+      let result = this.account === null ? 'Добавить ' : 'Изменить ';
       if (this.accountType === 'account-revenue') {
-        return 'доход'
+        return result + 'доход';
       } else if (this.accountType === 'account-asset') {
-        return 'счёт'
+        return result + 'счёт';
       } else if (this.accountType === 'account-expense') {
-        return 'расход'
+        return result + 'расход';
       } else {
-        return 'неизвестно'
+        return 'неизвестно';
       }
+    },
+    buttonTitle() {
+      return this.account === null ? 'Добавить' : 'Изменить';
     }
   },
   methods: {
     ...mapMutations({
-      addAccount: 'account/addAccount'
+      addAccount: 'account/addAccount',
+      editAccount: 'account/editAccount'
     }),
-    addItem() {
+    commit() {
       if (this.newValue.name !== '') {
-        this.newValue.id = Date.now();
-        this.addAccount({...this.newValue});
+        if (this.account === null) {
+          this.newValue.id = Date.now();
+          this.addAccount({...this.newValue});
+        } else {
+          this.editAccount({...this.newValue});
+        }
         this.newValue.name = '';
         this.newValue.icon = this.icons[0];
         this.$emit('update:show', false)
       }
-    }
+    },
   },
   mounted() {
-    if(this.account === null) {
+    if(this.account === null){
       this.newValue.icon = this.icons[0];
-    } else {
-
+    }
+  },
+  watch: {
+    show() {
+      if (this.account === null) {
+        this.newValue = {
+          id: '',
+          name: '',
+          type: this.accountType,
+          icon: this.icons[0]
+        }
+      } else {
+        this.newValue = {...this.account};
+      }
     }
   }
 }
