@@ -10,12 +10,12 @@
         </a>
       </div>
       <input type="text" name="accountName" class="add-account-dialog__input"
-             v-model="account.name">
+             v-model="newValue.name">
       <div class="add-account-dialog__icons-panel">
         <div class="add-account-dialog__icon"
              v-for="icon in icons"
-             @click="account.icon = icon">
-          <i v-if="icon === account.icon"
+             @click="newValue.icon = icon">
+          <i v-if="icon === newValue.icon"
              class="icon-selected"
              :class="[icon, this.accountType]"/>
           <i v-else
@@ -33,7 +33,7 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   data() {
     return {
-      account: {
+      newValue: {
         id: '',
         name: '',
         type: this.accountType,
@@ -49,6 +49,10 @@ export default {
     accountType: {
       type: String,
       required: true
+    },
+    account: {
+      type: Object,
+      default: null
     }
   },
   computed: {
@@ -72,17 +76,21 @@ export default {
       addAccount: 'account/addAccount'
     }),
     addItem() {
-      if (this.account.name !== '') {
-        this.account.id = Date.now();
-        this.addAccount({...this.account});
-        this.account.name = '';
-        this.account.icon = this.icons[0];
+      if (this.newValue.name !== '') {
+        this.newValue.id = Date.now();
+        this.addAccount({...this.newValue});
+        this.newValue.name = '';
+        this.newValue.icon = this.icons[0];
         this.$emit('update:show', false)
       }
     }
   },
   mounted() {
-    this.account.icon = this.icons[0];
+    if(this.account === null) {
+      this.newValue.icon = this.icons[0];
+    } else {
+
+    }
   }
 }
 </script>

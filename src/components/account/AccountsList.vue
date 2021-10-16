@@ -1,13 +1,13 @@
 <template>
   <div class="account-list">
-    <add-account-dialog
+    <account-dialog
         v-model:show="dialogVisible"
         :account-type="type"
-        @update:show="this.dialogVisible"
+        @update:show="dialogVisible"
     />
     <h3 class="account-list__title">{{ name }}</h3>
     <div class="account-list__grid">
-      <account
+      <account-balance
           v-for="account in accounts(type)"
           :account-id="account.id"/>
       <account :account-id="-1" @click="openDialog"/>
@@ -18,11 +18,12 @@
 <script>
 
 import {mapGetters} from "vuex";
-import AddAccountDialog from "@/components/account/AddAccountDialog";
 import Account from "@/components/account/Account";
+import AccountBalance from "@/components/account/AccountBalance";
+import AccountDialog from "@/components/account/AccountDialog";
 
 export default {
-  components: {AddAccountDialog, Account},
+  components: {AccountDialog, Account, AccountBalance},
   data() {
     return {
       dialogVisible: false
