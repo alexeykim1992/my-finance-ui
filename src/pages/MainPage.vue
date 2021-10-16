@@ -2,6 +2,7 @@
   <div class="container main-page">
     <transaction-dialog class="container main-page__add-dialog"/>
     <div class="main-page__column column-left">
+      <month-panel/>
       <accounts-list
           v-for="at in accountTypes"
           :name="at.name"
@@ -9,8 +10,7 @@
     </div>
     <div class="main-page__column column-right">
       <transactions-day-list
-          :transactionsDayList="transactionsDayList"
-      />
+          :transactionsDayList="transactionsDayList"/>
     </div>
   </div>
 </template>
@@ -20,9 +20,10 @@ import {mapGetters} from "vuex";
 import TransactionsDayList from "@/components/transaction/TransactionsList";
 import AccountsList from "@/components/account/AccountsList";
 import TransactionDialog from "@/components/transaction/TransactionDialog";
+import MonthPanel from "@/components/MonthPanel";
 
 export default {
-  components: {TransactionDialog, AccountsList, TransactionsDayList},
+  components: {MonthPanel, TransactionDialog, AccountsList, TransactionsDayList},
   computed: {
     ...mapGetters({
       transactionsDayList: 'transaction/getTransactionDays',
@@ -39,12 +40,12 @@ export default {
   column-gap: 60px;
 
   &__column {
-    &.column-left{
+    &.column-left {
       justify-self: self-end;
     }
   }
 
-  &__add-dialog{
+  &__add-dialog {
     grid-column: span 2;
   }
 }

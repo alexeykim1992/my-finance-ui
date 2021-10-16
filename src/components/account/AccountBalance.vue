@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex';
 
 export default {
   name: "account",
@@ -31,7 +31,7 @@ export default {
       getAccountBalance: "account/getBalance"
     }),
     getBalance() {
-      return this.getAccountBalance(this.accountId, new Date('2021-09-10'));
+      return this.getAccountBalance(this.accountId);
     },
     getElement() {
       let result = this.getAccount(this.accountId);
@@ -57,7 +57,7 @@ export default {
   width: 120px;
   height: 120px;
 
-  &:hover{
+  &:hover {
     border: 1px solid blue;
     box-shadow: 0 0 7px 4px rgba(0, 0, 255, 0.4);
   }

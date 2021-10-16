@@ -62,17 +62,17 @@ export const accountModule = {
         getAccount: state => id => {
             return state.accounts.find(account => account.id === id);
         },
-        getBalance: (state, getters) => (accountId, date) => {
+        getBalance: (state, getters, rootState) => (accountId) => {
             let search = state.accounts.find(account => account.id === accountId);
             if (search === undefined) {
                 return '-';
             } else if (search.type === 'account-revenue') {
-                return getters.getCredit(accountId, date);
+                return getters.getCredit(accountId, rootState.date.date);
             } else if (search.type === 'account-asset') {
-                return getters.getDebit(accountId, date)
-                    - getters.getCredit(accountId, date)
+                return getters.getDebit(accountId, rootState.date.date)
+                    - getters.getCredit(accountId, rootState.date.date)
             } else if (search.type === 'account-expense') {
-                return getters.getDebit(accountId, date);
+                return getters.getDebit(accountId, rootState.date.date);
             }
         },
         getDebit: (state, getters, rootState, rootGetters) => (accountId, date) => {
