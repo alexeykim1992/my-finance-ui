@@ -50,7 +50,7 @@ export default {
 
 <style scoped lang="scss">
 .transactions-day {
-  width: 500px;
+  width: 555px;
   margin: 20px 0;
 
   &__date {

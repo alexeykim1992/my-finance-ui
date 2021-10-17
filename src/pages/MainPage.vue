@@ -1,8 +1,10 @@
 <template>
   <div class="container main-page">
-    <transaction-dialog class="container main-page__add-dialog"/>
+    <div class="main-page__top-panel">
+      <month-panel class="main-page__top-panel-month"/>
+      <transaction-dialog class="main-page__top-panel-dialog"/>
+    </div>
     <div class="main-page__column column-left">
-      <month-panel/>
       <accounts-list
           v-for="at in accountTypes"
           :name="at.name"
@@ -45,8 +47,15 @@ export default {
     }
   }
 
-  &__add-dialog {
+  &__top-panel {
     grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-month{
+      padding: 0 20px;
+    }
   }
 }
 </style>
