@@ -1,5 +1,6 @@
 export const dateModule = {
     state: () => ({
+        accountStart: new Date('2021-09-01'),
         date: new Date(),
         month: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
             'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
@@ -14,14 +15,28 @@ export const dateModule = {
         },
         getMonthYearString: state => {
             return state.month[state.date.getMonth()] + ' ' + state.date.getFullYear();
+        },
+        hasNextMonth(state) {
+            let next = new Date(state.date);
+            next = new Date(next.setMonth(next.getMonth() + 1));
+            return next < new Date();
+        },
+        hasPrevMonth(state) {
+            let prev = new Date(state.date);
+            prev = new Date(prev.setMonth(prev.getMonth() - 1));
+            return prev > state.accountStart;
         }
     },
     mutations: {
         nextMonth(state) {
-            state.date = new Date(state.date.setMonth(state.date.getMonth() + 1));
+            let next = new Date(state.date);
+            next = new Date(next.setMonth(next.getMonth() + 1));
+            state.date = next < new Date() ? next : state.date;
         },
         prevMonth(state) {
-            state.date = new Date(state.date.setMonth(state.date.getMonth() - 1));
+            let prev = new Date(state.date);
+            prev = new Date(prev.setMonth(prev.getMonth() - 1));
+            state.date = prev > state.accountStart ? prev : state.date;
         }
     },
     namespaced: true

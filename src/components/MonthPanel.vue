@@ -1,11 +1,15 @@
 <template>
   <div class="month-panel">
     <button class="month-panel__button"
+            :class="hasPrevMonth ? '' : 'disabled'"
+            :disabled='!hasPrevMonth'
             @click="prevMonth">
       <i class="far fa-arrow-circle-left"></i>
     </button>
     <div class="month-panel__title">{{ getMonth }}</div>
     <button class="month-panel__button"
+            :class="hasNextMonth ? '' : 'disabled'"
+            :disabled='!hasNextMonth'
             @click="nextMonth">
       <i class="far fa-arrow-circle-right"></i>
     </button>
@@ -23,7 +27,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getMonth: 'date/getMonthYearString'
+      getMonth: 'date/getMonthYearString',
+      hasNextMonth: 'date/hasNextMonth',
+      hasPrevMonth: 'date/hasPrevMonth'
     })
   },
   methods: {
@@ -40,7 +46,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
 
   &__title {
     font-size: 23px;
@@ -55,6 +60,14 @@ export default {
     font-size: 40px;
     color: gray;
     border: none;
+
+    &.disabled {
+      color: darkgray;
+
+      &:active {
+        color: darkgray;
+      }
+    }
 
     &:hover {
       color: darkgray;
