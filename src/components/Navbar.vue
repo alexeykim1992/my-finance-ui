@@ -7,6 +7,7 @@
           MyFinance
         </a></h1></li>
         <li><a href="/" class="nav__list-link">Главная</a></li>
+        <li><a href="/report" class="nav__list-link">Отчет</a></li>
         <li><a href="/about" class="nav__list-link">О приложении</a></li>
       </ul>
       <a href="/user" class="nav__user">

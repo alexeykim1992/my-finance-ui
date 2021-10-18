@@ -3,11 +3,15 @@ import MainPage from "@/pages/MainPage";
 import WelcomePage from "@/pages/WelcomePage";
 import AboutPage from "@/pages/AboutPage";
 import UserPage from "@/pages/UserPage";
+import ReportPage from "@/pages/ReportPage";
 
 const routes = [{
     path: '/',
     component: MainPage
 }, {
+    path: '/report',
+    component: ReportPage
+},{
     path: '/welcome',
     component: WelcomePage
 }, {

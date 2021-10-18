@@ -13,8 +13,9 @@ export const dateModule = {
                 + (date.getMonth() + 1).toString().padStart(2, 0) + '-'
                 + date.getDate().toString().padStart(2, 0);
         },
-        getMonthYearString: state => {
-            return state.month[state.date.getMonth()] + ' ' + state.date.getFullYear();
+        getMonthYearString: state => date => {
+            if (date === undefined) date = state.date;
+            return state.month[date.getMonth()] + ' ' + date.getFullYear();
         },
         hasNextMonth(state) {
             let next = new Date(state.date);
@@ -28,6 +29,9 @@ export const dateModule = {
         }
     },
     mutations: {
+        setDate(state, date) {
+            state.date = date
+        },
         nextMonth(state) {
             let next = new Date(state.date);
             next = new Date(next.setMonth(next.getMonth() + 1));

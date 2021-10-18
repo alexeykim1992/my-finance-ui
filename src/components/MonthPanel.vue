@@ -6,7 +6,7 @@
             @click="prevMonth">
       <i class="far fa-arrow-circle-left"></i>
     </button>
-    <div class="month-panel__title">{{ getMonth }}</div>
+    <div class="month-panel__title">{{ getMonth() }}</div>
     <button class="month-panel__button"
             :class="hasNextMonth ? '' : 'disabled'"
             :disabled='!hasNextMonth'
