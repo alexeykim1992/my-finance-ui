@@ -5,7 +5,14 @@
         :account-type="type"
         :account="currentAccount"
         @update:show="isShowDialog"/>
-    <h3 class="account-list__title">{{ name }}</h3>
+    <div class="account-list__top">
+      <h3 class="account-list__top-title">{{ name }}</h3>
+      <div class="account-list__top-total"> Итого:
+        <span class="account-list__top-total-span">
+          {{ getTotalBalance(this.type) }}
+        </span>
+      </div>
+    </div>
     <div class="account-list__grid">
       <account-balance
           v-for="account in accounts(type)"
@@ -54,7 +61,8 @@ export default {
   computed: {
     ...mapGetters({
       accounts: 'account/getAccounts',
-      getAccount: 'account/getAccount'
+      getAccount: 'account/getAccount',
+      getTotalBalance: 'account/getTotalBalance'
     })
   }
 }
@@ -64,10 +72,26 @@ export default {
 .account-list {
   margin: 20px 0;
 
-  &__title {
-    font-size: 25px;
-    margin-left: 30px;
-    margin-bottom: 10px;
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 15px 10px 30px;
+
+    &-title {
+      font-size: 25px;
+    }
+
+    &-total {
+      font-size: 20px;
+      color: darkgray;
+      font-weight: 300;
+
+      &-span {
+        color: black;
+        font-weight: 600;
+      }
+    }
   }
 
   &__grid {
