@@ -1,6 +1,6 @@
 <template>
   <div class="transactions-day">
-    <div class="transactions-day__date">{{ transactionsDay.date.toLocaleDateString() }}</div>
+    <div class="transactions-day__date">{{ getDate(transactionsDay.date) }}</div>
     <transaction
         v-for="transaction in transactionsDay.transactions"
         :transaction="transaction"
@@ -42,7 +42,8 @@ export default {
           : this.dayBalance < 0 ? 'sum-loss' : '';
     },
     ...mapGetters({
-      getDayBalance: "transaction/getDayBalance"
+      getDayBalance: "transaction/getDayBalance",
+      getDate: "date/getDayMonthYearString"
     })
   }
 }

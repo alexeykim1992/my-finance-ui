@@ -3,7 +3,10 @@ export const dateModule = {
         accountStart: new Date('2021-09-01'),
         date: new Date(),
         month: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+        monthOfDate: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+            'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
+        dayOfWeek: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС']
     }),
     getters: {
         getToday: (state, getters) =>
@@ -16,6 +19,11 @@ export const dateModule = {
         getMonthYearString: state => date => {
             if (date === undefined) date = state.date;
             return state.month[date.getMonth()] + ' ' + date.getFullYear();
+        },
+        getDayMonthYearString: state => date => {
+            if (date === undefined) date = state.date;
+            let year = (new Date).getFullYear() === date.getFullYear() ? '' : date.getFullYear();
+            return state.dayOfWeek[date.getDay()] + ', ' + date.getDate() + ' ' + state.monthOfDate[date.getMonth()] + ' ' + year;
         },
         hasNextMonth(state) {
             let next = new Date(state.date);
