@@ -1,5 +1,6 @@
 export const reportModule = {
     state: () => ({
+        fields:['Месяц', 'Доход', 'Расход', 'Итого'],
         report: [{
             month: 'Сентябрь 2021',
             revenue: 2000,
