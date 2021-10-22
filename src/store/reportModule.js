@@ -1,6 +1,6 @@
 export const reportModule = {
     state: () => ({
-        fields:['Месяц', 'Доход', 'Расход', 'Итого'],
+        fields: ['Месяц', 'Доход', 'Расход', 'Итого'],
         report: [{
             month: 'Сентябрь 2021',
             revenue: 2000,
@@ -19,11 +19,14 @@ export const reportModule = {
             let finish = new Date();
             let result = [];
             do {
+                let revenue = rootGetters["account/getTotalBalance"]('account-revenue', date);
+                let expense = rootGetters["account/getTotalBalance"]('account-expense', date);
+                let total = rootGetters["account/getTotalBalance"]('account-asset', date);
                 let row = {
                     month: rootGetters["date/getMonthYearString"](date),
-                    revenue: rootGetters["account/getTotalBalance"]('account-revenue', date),
-                    expense: rootGetters["account/getTotalBalance"]('account-expense', date),
-                    total: rootGetters["account/getTotalBalance"]('account-asset', date)
+                    revenue: revenue,
+                    expense: expense + ' (' + (expense / revenue) * 100 + '%)',
+                    total: total + ' (' + (total / revenue) * 100 + '%)',
                 }
                 result.push(row);
                 date = new Date(date.setMonth(date.getMonth() + 1));

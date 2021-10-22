@@ -54,26 +54,32 @@ export default {
     &-row {
       font-size: 16px;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: 75px repeat(4, 1fr);
+      text-align: end;
 
-      &:nth-of-type(2n){
+      &:nth-of-type(2n) {
         background: #f6f6f6;
       }
 
-      &:nth-of-type(2n+1){
+      &:nth-of-type(2n+1) {
         background: #e9e9e9;
       }
 
-      &:first-of-type{
+      &:first-of-type {
         color: white;
         background: #27ae60;
         font-weight: 600;
+        text-align: center;
       }
 
       & .table-cell {
         font-size: 16px;
         padding: 7px 15px;
         border: 1px solid darkgray;
+
+        &:first-of-type {
+          text-align: center;
+        }
       }
     }
   }
