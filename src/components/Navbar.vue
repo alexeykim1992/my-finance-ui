@@ -11,7 +11,7 @@
         <li><a href="/about" class="nav__list-link">О приложении</a></li>
       </ul>
       <a href="/user" class="nav__user">
-        <p class="nav__user-name">CurrentUser</p>
+        <p class="nav__user-name">{{ userName }}</p>
         <i class="far fa-user nav__user-icon"></i>
       </a>
     </div>
@@ -19,7 +19,15 @@
 </template>
 
 <script>
-export default {}
+import {mapState} from "vuex";
+
+export default {
+  computed: {
+    ...mapState({
+      userName: state => state.user.name
+    })
+  }
+}
 </script>
 
 <style scoped lang="scss">
