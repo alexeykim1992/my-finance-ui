@@ -1,7 +1,8 @@
 export const reportModule = {
     state: () => ({
         generalReportFields: ['Месяц', 'Доход', 'Расход', 'Итого'],
-        revenueReportFields: ['Доход', 'Сумма', '%']
+        revenueReportFields: ['Доход', 'Сумма', '%'],
+        expenseReportFields: ['Расход', 'Сумма', '%']
     }),
     getters: {
         getGeneralReport: (state, getters, rootState, rootGetters) => {
@@ -33,6 +34,19 @@ export const reportModule = {
                     name: account.name,
                     value: value,
                     percent: ((value / revenue) * 100).toFixed(2) + '%'
+                };
+            });
+        },
+        getExpenseReport: (state, getters, rootState, rootGetters) => {
+            let date = new Date('2021-09-01');
+            let expense = rootGetters["account/getTotalBalance"]('account-expense', date);
+            let expenses = rootGetters["account/getAccounts"]('account-expense');
+            return expenses.map(account => {
+                let value = rootGetters["account/getBalance"](account.id, date);
+                return {
+                    name: account.name,
+                    value: value,
+                    percent: ((value / expense) * 100).toFixed(2) + '%'
                 };
             });
         }
