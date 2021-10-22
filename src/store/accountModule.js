@@ -35,6 +35,11 @@ export const accountModule = {
             name: "Основной",
             type: "account-revenue",
             icon: "far fa-briefcase"
+        }, {
+            id: 8,
+            name: "Подработка",
+            type: "account-revenue",
+            icon: "far fa-badge-percent"
         }],
         accountTypes: [{
             name: "Доходы",

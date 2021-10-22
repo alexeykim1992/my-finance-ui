@@ -63,6 +63,13 @@ export const transactionModule = {
             to: 6,
             value: 300,
             description: "Курсы"
+        },{
+            id: 10,
+            date: new Date('2021-09-25'),
+            from: 8,
+            to: 3,
+            value: 700,
+            description: "Подработка"
         }]
     }),
     getters: {
@@ -122,7 +129,6 @@ export const transactionModule = {
                 result.to = input.to;
                 result.value = input.value;
                 result.description = input.description;
-                console.log(result)
             } else {
                 console.log('Транзакция не найдена');
             }

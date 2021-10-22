@@ -26,7 +26,7 @@ import {mapGetters, mapState} from "vuex";
 export default {
   computed: {
     ...mapState({
-      getFields: state => state.report.fields
+      getFields: state => state.report.generalReportFields
     }),
     ...mapGetters({
       getGeneralReport: 'report/getGeneralReport'
@@ -35,7 +35,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .report {
   margin: 30px 0;
   width: 100%;
