@@ -12,6 +12,8 @@ export const dateModule = {
         getToday: (state, getters) =>
             getters.getDate(new Date()),
         getDate: () => date => {
+            if (date === undefined) date = state.date;
+            else date = new Date(date);
             return date.getFullYear().toString() + '-'
                 + (date.getMonth() + 1).toString().padStart(2, 0) + '-'
                 + date.getDate().toString().padStart(2, 0);
@@ -21,7 +23,6 @@ export const dateModule = {
             return state.month[date.getMonth()] + ' ' + date.getFullYear();
         },
         getDayMonthYearString: state => date => {
-
             if (date === undefined) date = state.date;
             else date = new Date(date);
             let year = (new Date).getFullYear() === date.getFullYear() ? '' : date.getFullYear();
