@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import TransactionsDayList from "@/components/transaction/TransactionsList";
 import AccountsList from "@/components/account/AccountsList";
 import TransactionDialog from "@/components/transaction/TransactionDialog";
@@ -31,6 +31,16 @@ export default {
       transactionsDayList: 'transaction/getTransactionDays',
       accountTypes: 'account/getTypes'
     })
+  },
+  methods: {
+    ...mapActions({
+      fetchTransactions: 'transaction/fetchTransactions',
+      fetchAccounts: 'account/fetchAccounts'
+    })
+  },
+  mounted() {
+    this.fetchTransactions();
+    this.fetchAccounts();
   }
 }
 </script>

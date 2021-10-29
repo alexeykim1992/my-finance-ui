@@ -1,6 +1,9 @@
+import axios from "axios";
+
 export const accountModule = {
     state: () => ({
-        accounts: [{
+        accounts: [],
+        accountsMock: [{
             id: 1,
             name: "Кошелек",
             type: "account-asset",
@@ -52,11 +55,6 @@ export const accountModule = {
             type: "account-expense"
         }]
     }),
-    actions: {
-        fetchAccounts() {
-
-        }
-    },
     getters: {
         getAccounts: state => accountType => {
             return state.accounts.filter(account => account.type === accountType);
@@ -111,6 +109,21 @@ export const accountModule = {
                 search.icon = input.icon;
             } else {
                 console.log('Счет не найден');
+            }
+        },
+        setAccounts(state, accounts) {
+            state.accounts = accounts;
+        }
+    },
+    actions: {
+        async fetchAccounts({state, commit, rootState}) {
+            try {
+                const response = await axios.get('http://localhost:8081/account', {
+                    params: { userId: rootState.user.id }
+                });
+                commit('setAccounts', response.data)
+            } catch (e) {
+                console.error(e);
             }
         }
     },

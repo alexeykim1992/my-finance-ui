@@ -21,7 +21,9 @@ export const dateModule = {
             return state.month[date.getMonth()] + ' ' + date.getFullYear();
         },
         getDayMonthYearString: state => date => {
+
             if (date === undefined) date = state.date;
+            else date = new Date(date);
             let year = (new Date).getFullYear() === date.getFullYear() ? '' : date.getFullYear();
             return state.dayOfWeek[date.getDay()] + ', ' + date.getDate() + ' ' + state.monthOfDate[date.getMonth()] + ' ' + year;
         },

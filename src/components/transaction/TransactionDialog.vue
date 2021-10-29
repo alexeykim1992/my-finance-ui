@@ -123,16 +123,26 @@ export default {
         }
       }
       if (result.find(account => account.id === this.newValue.to) === undefined) {
-        this.newValue.to = result[0].id;
+        this.newValue.to = result.length === 0 ? -1 : result[0].id;
       }
       return result;
+    }
+  },
+  watch: {
+    getSources(newSources) {
+      if (this.newValue.from === -1 && newSources.length !== 0)
+        this.newValue.from = newSources[0].id;
+    },
+    getDestinations(newDestinations) {
+      if (this.newValue.to === -1 && newDestinations.length !== 0)
+        this.newValue.to = newDestinations[0].id;
     }
   },
   mounted() {
     if (this.transaction === null) {
       this.newValue.date = this.today;
-      this.newValue.from = this.getSources[0].id;
-      this.newValue.to = this.getDestinations[0].id;
+      this.newValue.from = this.getSources.length === 0 ? -1 : this.getSources[0].id;
+      this.newValue.to = this.getDestinations.length === 0 ? -1 : this.getDestinations[0].id;
     } else {
       this.newValue = {...this.transaction};
       this.newValue.date = this.getDate(this.newValue.date);

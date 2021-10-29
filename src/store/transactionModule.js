@@ -1,6 +1,10 @@
+import axios from "axios";
+
 export const transactionModule = {
+
     state: () => ({
-        transactions: [{
+        transactions: [],
+        transactionsMock: [{
             id: 1,
             date: new Date('2021-09-27'),
             from: 1,
@@ -63,7 +67,7 @@ export const transactionModule = {
             to: 6,
             value: 300,
             description: "Курсы"
-        },{
+        }, {
             id: 10,
             date: new Date('2021-09-25'),
             from: 8,
@@ -90,15 +94,18 @@ export const transactionModule = {
                 });
             return days;
         },
-        getMonthByDate: state => date => {
+        getMonthByDate: (state, getters, rootState) => date => {
             return state.transactions
-                .filter(transaction =>
-                    transaction.date.getFullYear() === date.getFullYear() &&
-                    transaction.date.getMonth() === date.getMonth());
+                .filter(transaction => {
+                    let transactionDate = new Date(transaction.date);
+                    return transactionDate.getFullYear() === date.getFullYear() &&
+                        transactionDate.getMonth() === date.getMonth()
+                });
         },
         getTransactionType: (state, getters, rootState, rootGetters) => transaction => {
             let source = rootGetters["account/getAccount"](transaction.from);
             let destination = rootGetters["account/getAccount"](transaction.to);
+            if (source === undefined || destination === undefined) return 0;
             if (source.type === 'account-revenue' && destination.type === 'account-asset') return 1;
             if (source.type === 'account-asset' && destination.type === 'account-expense') return -1;
             return 0;
@@ -131,6 +138,21 @@ export const transactionModule = {
                 result.description = input.description;
             } else {
                 console.log('Транзакция не найдена');
+            }
+        },
+        setTransactions(state, transactions) {
+            state.transactions = transactions;
+        }
+    },
+    actions: {
+        async fetchTransactions({state, commit, rootState}) {
+            try {
+                const response = await axios.get('http://localhost:8081/transaction', {
+                    params: { userId: rootState.user.id }
+                });
+                commit('setTransactions', response.data);
+            } catch (e) {
+                console.error(e);
             }
         }
     },
