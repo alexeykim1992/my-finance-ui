@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 
 export default {
   data() {
@@ -77,8 +77,10 @@ export default {
   },
   methods: {
     ...mapMutations({
-      addAccount: 'account/addAccount',
       editAccount: 'account/editAccount'
+    }),
+    ...mapActions({
+      addAccount: 'account/addAccount',
     }),
     commit() {
       if (this.newValue.name !== '') {
@@ -95,7 +97,7 @@ export default {
     },
   },
   mounted() {
-    if(this.account === null){
+    if (this.account === null) {
       this.newValue.icon = this.icons[0];
     }
   },

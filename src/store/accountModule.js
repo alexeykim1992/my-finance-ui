@@ -99,7 +99,7 @@ export const accountModule = {
         }
     },
     mutations: {
-        addAccount(state, input) {
+        setAccount(state, input) {
             state.accounts.push(input);
         },
         editAccount(state, input) {
@@ -111,7 +111,7 @@ export const accountModule = {
                 console.log('Счет не найден');
             }
         },
-        setAccounts(state, accounts) {
+        setAccountList(state, accounts) {
             state.accounts = accounts;
         }
     },
@@ -119,9 +119,18 @@ export const accountModule = {
         async fetchAccounts({state, commit, rootState}) {
             try {
                 const response = await axios.get('http://localhost:8081/account', {
-                    params: { userId: rootState.user.id }
+                    params: {userId: rootState.user.id}
                 });
-                commit('setAccounts', response.data)
+                commit('setAccountList', response.data)
+            } catch (e) {
+                console.error(e);
+            }
+        },
+        async addAccount({dispatch, commit, rootState}, account) {
+            try {
+                const response = await axios.post('http://localhost:8081/account', {...account})
+                account.id = response.data;
+                commit('setAccount', account);
             } catch (e) {
                 console.error(e);
             }
