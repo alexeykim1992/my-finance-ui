@@ -26,7 +26,7 @@ import {mapGetters, mapState} from "vuex";
 export default {
   computed: {
     ...mapState({
-      getFields: state => state.report.expenseReportFields
+      getFields: state => state.report.expenseReport.fields
     }),
     ...mapGetters({
       getExpenseReport: 'report/getExpenseReport'
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.report__table-row{
+.report__table-row {
   grid-template-columns: 75px repeat(3, 1fr);
 }
 </style>

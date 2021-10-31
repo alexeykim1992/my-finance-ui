@@ -10,9 +10,20 @@
 import GeneralReportTable from "@/components/report/GeneralReportTable";
 import RevenueReportTable from "@/components/report/RevenueReportTable";
 import ExpenseReportTable from "@/components/report/ExpenseReportTable";
+import {mapActions} from "vuex";
 
 export default {
-  components: {ExpenseReportTable, RevenueReportTable, GeneralReportTable}
+  components: {ExpenseReportTable, RevenueReportTable, GeneralReportTable},
+  methods:{
+    ...mapActions({
+      fetchTransactions: 'transaction/fetchTransactions',
+      fetchAccounts: 'account/fetchAccounts'
+    })
+  },
+  mounted() {
+    this.fetchTransactions();
+    this.fetchAccounts();
+  }
 }
 </script>
 

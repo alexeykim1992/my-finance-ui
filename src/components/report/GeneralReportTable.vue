@@ -26,7 +26,7 @@ import {mapGetters, mapState} from "vuex";
 export default {
   computed: {
     ...mapState({
-      getFields: state => state.report.generalReportFields
+      getFields: state => state.report.generalReport.fields
     }),
     ...mapGetters({
       getGeneralReport: 'report/getGeneralReport'

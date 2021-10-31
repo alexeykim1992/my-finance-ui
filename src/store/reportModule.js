@@ -1,12 +1,21 @@
 export const reportModule = {
     state: () => ({
-        generalReportFields: ['Месяц', 'Доход', 'Расход', 'Итого'],
-        revenueReportFields: ['Доход', 'Сумма', '%'],
-        expenseReportFields: ['Расход', 'Сумма', '%']
+        generalReport: {
+            fields: ['Месяц', 'Доход', 'Расход', 'Итого'],
+            data: []
+        },
+        revenueReport: {
+            fields: ['Доход', 'Сумма', '%'],
+            data: []
+        },
+        expenseReport: {
+            fields: ['Расход', 'Сумма', '%'],
+            data: []
+        }
     }),
     getters: {
         getGeneralReport: (state, getters, rootState, rootGetters) => {
-            let date = rootState.date.accountStart;
+            let date = new Date(rootState.date.accountStart);
             let finish = new Date();
             let result = [];
             do {

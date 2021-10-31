@@ -145,7 +145,7 @@ export const transactionModule = {
         }
     },
     actions: {
-        async fetchTransactions({state, commit, rootState}) {
+        async fetchTransactions({dispatch, commit, rootState}) {
             try {
                 const response = (await axios.get('http://localhost:8081/transaction', {
                     params: {userId: rootState.user.id}
