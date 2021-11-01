@@ -75,11 +75,9 @@ export const transactionModule = {
     actions: {
         async fetchTransactions({dispatch, commit, rootState}) {
             try {
-                const response = (await axios.get('http://localhost:8081/transaction', {
-                    params: {userId: rootState.user.id}
-                })).data;
-                response.forEach(transaction => transaction.date = new Date(transaction.date))
-                commit('setTransactionList', response);
+                const response = await axios.get('http://localhost:8081/transaction');
+                response.data.forEach(transaction => transaction.date = new Date(transaction.date))
+                commit('setTransactionList', response.data);
             } catch (e) {
                 console.error(e);
             }

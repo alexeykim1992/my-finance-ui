@@ -77,9 +77,7 @@ export const accountModule = {
     actions: {
         async fetchAccounts({state, commit, rootState}) {
             try {
-                const response = await axios.get('http://localhost:8081/account', {
-                    params: {userId: rootState.user.id}
-                });
+                const response = await axios.get('http://localhost:8081/account');
                 commit('setAccountList', response.data)
             } catch (e) {
                 console.error(e);

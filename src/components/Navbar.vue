@@ -19,13 +19,21 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      userName: state => state.user.name
+      userName: state => state.user.current.name
     })
+  },
+  methods: {
+    ...mapActions({
+      getUser: 'user/getCurrentUser'
+    })
+  },
+  mounted() {
+    this.getUser();
   }
 }
 </script>

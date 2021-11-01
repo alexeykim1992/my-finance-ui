@@ -33,10 +33,10 @@ export const dateModule = {
             next = new Date(next.setMonth(next.getMonth() + 1));
             return next < new Date();
         },
-        hasPrevMonth(state) {
+        hasPrevMonth(state, getters, rootState) {
             let prev = new Date(state.date);
             prev = new Date(prev.setMonth(prev.getMonth() - 1));
-            return prev > state.accountStart;
+            return prev > new Date(rootState.user.current.creationDate);
         }
     },
     mutations: {
@@ -50,8 +50,7 @@ export const dateModule = {
         },
         prevMonth(state) {
             let prev = new Date(state.date);
-            prev = new Date(prev.setMonth(prev.getMonth() - 1));
-            state.date = prev > state.accountStart ? prev : state.date;
+            state.date = new Date(prev.setMonth(prev.getMonth() - 1));
         }
     },
     namespaced: true
