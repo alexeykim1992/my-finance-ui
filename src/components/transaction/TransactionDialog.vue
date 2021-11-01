@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Account from "@/components/account/Account";
 import AccountsGrid from "@/components/account/AccountPicker";
 import AccountPicker from "@/components/account/AccountPicker";
@@ -58,7 +58,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
+    ...mapActions({
       addTransaction: 'transaction/addTransaction',
       editTransaction: 'transaction/editTransaction'
     }),

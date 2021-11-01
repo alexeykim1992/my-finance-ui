@@ -140,7 +140,7 @@ export const transactionModule = {
                 console.log('Транзакция не найдена');
             }
         },
-        setTransactions(state, transactions) {
+        setTransactionList(state, transactions) {
             state.transactions = transactions;
         }
     },
@@ -151,7 +151,24 @@ export const transactionModule = {
                     params: {userId: rootState.user.id}
                 })).data;
                 response.forEach(transaction => transaction.date = new Date(transaction.date))
-                commit('setTransactions', response);
+                commit('setTransactionList', response);
+            } catch (e) {
+                console.error(e);
+            }
+        },
+        async addTransaction({dispatch, commit}, transaction) {
+            try {
+                const response = await axios.post('http://localhost:8081/transaction', {...transaction});
+                transaction.id = response.data;
+                commit('addTransaction', transaction);
+            } catch (e) {
+                console.error(e);
+            }
+        },
+        async editTransaction({dispatch, commit}, transaction) {
+            try {
+                const response = await axios.put('http://localhost:8081/transaction', {...transaction});
+                if (response.data !== -1) commit('editTransaction', transaction);
             } catch (e) {
                 console.error(e);
             }
