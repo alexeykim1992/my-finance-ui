@@ -119,18 +119,26 @@ export const accountModule = {
         async fetchAccounts({state, commit, rootState}) {
             try {
                 const response = await axios.get('http://localhost:8081/account', {
-                    params: {userId: rootState.user.id}
+                    params: { userId: rootState.user.id }
                 });
                 commit('setAccountList', response.data)
             } catch (e) {
                 console.error(e);
             }
         },
-        async addAccount({dispatch, commit, rootState}, account) {
+        async addAccount({dispatch, commit}, account) {
             try {
-                const response = await axios.post('http://localhost:8081/account', {...account})
+                const response = await axios.post('http://localhost:8081/account', {...account});
                 account.id = response.data;
                 commit('setAccount', account);
+            } catch (e) {
+                console.error(e);
+            }
+        },
+        async editAccount({dispatch, commit}, account) {
+            try {
+                const response = await axios.put('http://localhost:8081/account', {...account});
+                commit('editAccount', account);
             } catch (e) {
                 console.error(e);
             }

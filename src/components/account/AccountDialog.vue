@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   data() {
@@ -76,11 +76,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      editAccount: 'account/editAccount'
-    }),
     ...mapActions({
       addAccount: 'account/addAccount',
+      editAccount: 'account/editAccount'
     }),
     commit() {
       if (this.newValue.name !== '') {
