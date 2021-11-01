@@ -15,8 +15,8 @@ export const reportModule = {
     }),
     getters: {
         getGeneralReport: (state, getters, rootState, rootGetters) => {
-            let date = new Date(rootState.date.accountStart);
-            let finish = new Date();
+            let date = new Date();
+            let finish = new Date(rootState.user.current.creationDate);
             let result = [];
             do {
                 let revenue = rootGetters["account/getTotalBalance"]('account-revenue', date);
@@ -29,8 +29,8 @@ export const reportModule = {
                     total: total + ' (' + ((total / revenue) * 100).toFixed(2) + '%)',
                 }
                 result.push(row);
-                date = new Date(date.setMonth(date.getMonth() + 1));
-            } while (date < finish)
+                date = new Date(date.setMonth(date.getMonth() - 1));
+            } while (date > finish)
             return result;
         },
         getRevenueReport: (state, getters, rootState, rootGetters) => {
@@ -44,7 +44,8 @@ export const reportModule = {
                     value: value,
                     percent: ((value / revenue) * 100).toFixed(2) + '%'
                 };
-            });
+            }).sort((accountA, accountB) =>
+                accountA.value > accountB.value ? -1 : accountA.value < accountB.value ? 1 : 0);
         },
         getExpenseReport: (state, getters, rootState, rootGetters) => {
             let date = new Date('2021-09-01');
@@ -57,7 +58,8 @@ export const reportModule = {
                     value: value,
                     percent: ((value / expense) * 100).toFixed(2) + '%'
                 };
-            });
+            }).sort((accountA, accountB) =>
+                accountA.value > accountB.value ? -1 : accountA.value < accountB.value ? 1 : 0);
         }
     },
     namespaced: true
