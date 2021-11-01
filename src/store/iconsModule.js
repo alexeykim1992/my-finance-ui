@@ -1,6 +1,9 @@
+import axios from "axios";
+
 export const iconsModule = {
     state: () => ({
-        icons: [
+        icons:[],
+        iconsMock: [
             "far fa-wallet",
             "far fa-credit-card-front",
             "far fa-money-bill-wave",
@@ -39,6 +42,21 @@ export const iconsModule = {
     getters: {
         getIcons(state) {
             return state.icons;
+        }
+    },
+    mutations: {
+        setIconList(state, icons) {
+            state.icons = icons;
+        }
+    },
+    actions: {
+        async getIcons({commit}) {
+            try {
+                const result = await axios.get('http://localhost:8081/icon');
+                commit('setIconList', result.data);
+            } catch (e) {
+                console.error(e);
+            }
         }
     },
     namespaced: true

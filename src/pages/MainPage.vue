@@ -35,12 +35,14 @@ export default {
   methods: {
     ...mapActions({
       fetchTransactions: 'transaction/fetchTransactions',
-      fetchAccounts: 'account/fetchAccounts'
+      fetchAccounts: 'account/fetchAccounts',
+      fetchIcons: 'icon/getIcons'
     })
   },
   mounted() {
     this.fetchTransactions();
     this.fetchAccounts();
+    this.fetchIcons();
   }
 }
 </script>

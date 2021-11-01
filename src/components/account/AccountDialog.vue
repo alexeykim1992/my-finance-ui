@@ -14,12 +14,12 @@
       <div class="add-account-dialog__icons-panel">
         <div class="add-account-dialog__icon"
              v-for="icon in icons"
-             @click="newValue.icon = icon">
-          <i v-if="icon === newValue.icon"
+             @click="newValue.icon = icon.value">
+          <i v-if="icon.value === newValue.icon"
              class="icon-selected"
-             :class="[icon, this.accountType]"/>
+             :class="[icon.value, this.accountType]"/>
           <i v-else
-             :class="icon"/>
+             :class="icon.value"/>
         </div>
       </div>
       <button class="add-account-dialog__button" @click="commit">{{ buttonTitle }}</button>
