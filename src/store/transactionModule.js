@@ -1,80 +1,8 @@
 import axios from "axios";
 
 export const transactionModule = {
-
     state: () => ({
-        transactions: [],
-        transactionsMock: [{
-            id: 1,
-            date: new Date('2021-09-27'),
-            from: 1,
-            to: 2,
-            value: 100,
-            description: "покупки в магазине"
-        }, {
-            id: 2,
-            date: new Date('2021-09-25'),
-            from: 3,
-            to: 4,
-            value: 10,
-            description: "на работу"
-        }, {
-            id: 3,
-            date: new Date('2021-09-27'),
-            from: 7,
-            to: 1,
-            value: 1000,
-            description: "Зарплата"
-        }, {
-            id: 4,
-            date: new Date('2021-09-27'),
-            from: 3,
-            to: 1,
-            value: 1000,
-            description: "Зарплата"
-        }, {
-            id: 5,
-            date: new Date('2021-09-23'),
-            from: 1,
-            to: 2,
-            value: 75,
-            description: "покупки в магазине"
-        }, {
-            id: 6,
-            date: new Date('2021-09-23'),
-            from: 1,
-            to: 4,
-            value: 30,
-            description: "на работу"
-        }, {
-            id: 7,
-            date: new Date('2021-09-23'),
-            from: 1,
-            to: 2,
-            value: 55,
-            description: "покупки в магазине"
-        }, {
-            id: 8,
-            date: new Date('2021-09-25'),
-            from: 3,
-            to: 5,
-            value: 15,
-            description: "Интернет"
-        }, {
-            id: 9,
-            date: new Date('2021-09-25'),
-            from: 1,
-            to: 6,
-            value: 300,
-            description: "Курсы"
-        }, {
-            id: 10,
-            date: new Date('2021-09-25'),
-            from: 8,
-            to: 3,
-            value: 700,
-            description: "Подработка"
-        }]
+        transactions: []
     }),
     getters: {
         getTransactionDays(state) {
