@@ -159,8 +159,10 @@ export const transactionModule = {
         async addTransaction({dispatch, commit}, transaction) {
             try {
                 const response = await axios.post('http://localhost:8081/transaction', {...transaction});
-                transaction.id = response.data;
-                commit('addTransaction', transaction);
+                if (response.data !== -1) {
+                    transaction.id = response.data;
+                    commit('addTransaction', transaction);
+                } else console.log('Ошибка при записи транзакции');
             } catch (e) {
                 console.error(e);
             }
@@ -168,7 +170,9 @@ export const transactionModule = {
         async editTransaction({dispatch, commit}, transaction) {
             try {
                 const response = await axios.put('http://localhost:8081/transaction', {...transaction});
-                if (response.data !== -1) commit('editTransaction', transaction);
+                if (response.data !== -1) {
+                    commit('editTransaction', transaction);
+                } else console.log('Транзакция не найдена');
             } catch (e) {
                 console.error(e);
             }

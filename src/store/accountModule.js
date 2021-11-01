@@ -119,7 +119,7 @@ export const accountModule = {
         async fetchAccounts({state, commit, rootState}) {
             try {
                 const response = await axios.get('http://localhost:8081/account', {
-                    params: { userId: rootState.user.id }
+                    params: {userId: rootState.user.id}
                 });
                 commit('setAccountList', response.data)
             } catch (e) {
@@ -129,8 +129,10 @@ export const accountModule = {
         async addAccount({dispatch, commit}, account) {
             try {
                 const response = await axios.post('http://localhost:8081/account', {...account});
-                account.id = response.data;
-                commit('setAccount', account);
+                if (response.data !== -1) {
+                    account.id = response.data;
+                    commit('setAccount', account);
+                } else console.log('Ошибка при записи счета')
             } catch (e) {
                 console.error(e);
             }
@@ -138,7 +140,9 @@ export const accountModule = {
         async editAccount({dispatch, commit}, account) {
             try {
                 const response = await axios.put('http://localhost:8081/account', {...account});
-                commit('editAccount', account);
+                if (response.data !== -1) {
+                    commit('editAccount', account);
+                } else console.log('Счет не найден')
             } catch (e) {
                 console.error(e);
             }

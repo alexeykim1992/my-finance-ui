@@ -65,7 +65,7 @@ export default {
     createTransaction() {
       if (this.newValue.value !== '' && this.date !== '') {
         if (this.transaction === null) {
-          this.newValue.id = Date.now();
+          this.newValue.id = null;
           this.addTransaction({...this.newValue});
         } else {
           this.editTransaction({...this.newValue});

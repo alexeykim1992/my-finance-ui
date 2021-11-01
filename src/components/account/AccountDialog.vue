@@ -83,7 +83,7 @@ export default {
     commit() {
       if (this.newValue.name !== '') {
         if (this.account === null) {
-          this.newValue.id = Date.now();
+          this.newValue.id = null;
           this.addAccount({...this.newValue});
         } else {
           this.editAccount({...this.newValue});
