@@ -44,8 +44,9 @@ export const reportModule = {
                     value: value,
                     percent: ((value / revenue) * 100).toFixed(2) + '%'
                 };
-            }).sort((accountA, accountB) =>
-                accountA.value > accountB.value ? -1 : accountA.value < accountB.value ? 1 : 0);
+            }).filter(account => account.value > 0)
+                .sort((accountA, accountB) =>
+                    accountA.value > accountB.value ? -1 : accountA.value < accountB.value ? 1 : 0);
         },
         getExpenseReport: (state, getters, rootState, rootGetters) => {
             let date = new Date('2021-09-01');
@@ -58,8 +59,9 @@ export const reportModule = {
                     value: value,
                     percent: ((value / expense) * 100).toFixed(2) + '%'
                 };
-            }).sort((accountA, accountB) =>
-                accountA.value > accountB.value ? -1 : accountA.value < accountB.value ? 1 : 0);
+            }).filter(account => account.value > 0)
+                .sort((accountA, accountB) =>
+                    accountA.value > accountB.value ? -1 : accountA.value < accountB.value ? 1 : 0);
         }
     },
     namespaced: true
