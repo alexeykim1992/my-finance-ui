@@ -1,6 +1,7 @@
 <template>
   <div class="container report-page">
     <general-report-table class="report-page__general"/>
+    <month-panel class="report-page__month-panel"/>
     <revenue-report-table/>
     <expense-report-table/>
   </div>
@@ -10,11 +11,12 @@
 import GeneralReportTable from "@/components/report/GeneralReportTable";
 import RevenueReportTable from "@/components/report/RevenueReportTable";
 import ExpenseReportTable from "@/components/report/ExpenseReportTable";
+import MonthPanel from "@/components/MonthPanel";
 import {mapActions} from "vuex";
 
 export default {
-  components: {ExpenseReportTable, RevenueReportTable, GeneralReportTable},
-  methods:{
+  components: {ExpenseReportTable, RevenueReportTable, GeneralReportTable, MonthPanel},
+  methods: {
     ...mapActions({
       fetchTransactions: 'transaction/fetchTransactions',
       fetchAccounts: 'account/fetchAccounts'
@@ -28,12 +30,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.report-page{
+.report-page {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 60px;
 
-  &__general{
+  &__general,
+  &__month-panel {
     grid-column: span 2;
   }
 }

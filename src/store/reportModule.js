@@ -34,7 +34,7 @@ export const reportModule = {
             return result;
         },
         getRevenueReport: (state, getters, rootState, rootGetters) => {
-            let date = new Date('2021-09-01');
+            let date = new Date(rootState.date.date);
             let revenue = rootGetters["account/getTotalBalance"]('account-revenue', date);
             let revenues = rootGetters["account/getAccounts"]('account-revenue');
             return revenues.map(account => {
@@ -49,7 +49,7 @@ export const reportModule = {
                     accountA.value > accountB.value ? -1 : accountA.value < accountB.value ? 1 : 0);
         },
         getExpenseReport: (state, getters, rootState, rootGetters) => {
-            let date = new Date('2021-09-01');
+            let date = new Date(rootState.date.date);
             let expense = rootGetters["account/getTotalBalance"]('account-expense', date);
             let expenses = rootGetters["account/getAccounts"]('account-expense');
             return expenses.map(account => {
