@@ -52,6 +52,8 @@ export default {
   &__title {
     font-size: 18px;
     margin-top: 5px;
+    text-align: center;
+    width: max-content;
   }
 
   &.account-asset {
