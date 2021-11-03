@@ -24,6 +24,11 @@ export const accountModule = {
         getAccount: state => id => {
             return state.accounts.find(account => account.id === id);
         },
+        getProgress: (state, getters) => accountId => {
+            let account = getters.getAccount(accountId);
+            return account !== undefined && account.limit !== 0
+                ? (getters.getBalance(accountId) / account.limit) * 100 : 100;
+        },
         getBalance: (state, getters, rootState) => (accountId, date) => {
             if (date === undefined) date = rootState.date.date;
             let search = state.accounts.find(account => account.id === accountId);
