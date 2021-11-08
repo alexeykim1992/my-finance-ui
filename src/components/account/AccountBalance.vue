@@ -64,8 +64,8 @@ export default {
   border-radius: 5px;
 
   &:hover {
-    border: 1px solid blue;
-    box-shadow: 0 0 7px 4px rgba(0, 0, 255, 0.4);
+    border: 1px solid $hover-border;
+    box-shadow: 0 0 7px 4px $hover-shadow;
   }
 
   &__icon {
@@ -89,72 +89,68 @@ export default {
     transform: rotate(-90deg);
   }
 
-
   &.account-asset {
     background: transparent;
-    //background: yellow;
 
     & .account-balance__progress {
-      background: lightgreen;
+      background: $asset-value-clr;
 
       &::-moz-progress-bar {
-        background: lightgreen;
+        background: $asset-progress-clr;
       }
 
       &::-webkit-progress-bar {
-        background: lightgreen;
+        background: $asset-progress-clr;
       }
 
       &::-webkit-progress-value {
-        background: yellow;
+        background: $asset-value-clr;
       }
     }
   }
 
   &.account-revenue {
     background: transparent;
-    //background: lightblue;
 
     & .account-balance__progress {
-      background: lightblue;
+      background: $revenue-value-clr;
 
       &::-moz-progress-bar {
-        background: aquamarine;
+        background: $revenue-progress-clr;
       }
 
       &::-webkit-progress-bar {
-        background: aquamarine;
+        background: $revenue-progress-clr;
       }
 
       &::-webkit-progress-value {
-        background: lightblue;
+        background: $revenue-value-clr;
       }
     }
   }
 
   &.account-expense {
     background: transparent;
-    //background: orange;
 
     & .account-balance__progress {
-      background: orange;
+      background: $expense-value-clr;
 
       &::-moz-progress-bar {
-        background: darkorange;
+        background: $expense-progress-clr;
       }
 
       &::-webkit-progress-bar {
-        background: darkorange;
+        background: $expense-progress-clr;
       }
 
       &::-webkit-progress-value {
-        background: orange;
+        background: $expense-value-clr;
       }
     }
   }
 
   &.account-add {
-    background: darkgray;
+    background: $add-account-btn-clr;
   }
 }
 </style>

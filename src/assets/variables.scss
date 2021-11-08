@@ -7,12 +7,19 @@ $sm: 575px;
 $xsm: 360px;
 
 //colors
-$account-revenue-clr: lightblue;
-$account-revenue-progress-clr: aquamarine;
-$account-revenue-value-clr: lightblue;
-$account-asset-clr: yellow;
-$account-asset-progress-clr: yellow;
-$account-asset-value-clr: darkorange;
-$account-expense-clr: orange;
-$account-expense-progress-clr: orange;
-$account-expense-value-clr: orange;
+//accounts
+$revenue-clr: lightblue;
+$revenue-progress-clr: aquamarine;
+$revenue-value-clr: lightblue;
+$asset-clr: yellow;
+$asset-progress-clr: lightgreen;
+$asset-value-clr: yellow;
+$expense-clr: orange;
+$expense-progress-clr: darkorange;
+$expense-value-clr: orange;
+$add-account-btn-clr: darkgray;
+$account-dialog-exit: red;
+$account-dialog-selected: gray;
+
+$hover-border: blue;
+$hover-shadow: rgba(0, 0, 255, 0.4);

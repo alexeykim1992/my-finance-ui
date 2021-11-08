@@ -133,7 +133,7 @@ export default {
 
     &-exit {
       font-size: 30px;
-      color: red;
+      color: $account-dialog-exit;
     }
   }
 
@@ -164,18 +164,18 @@ export default {
     }
 
     & .icon-selected {
-      background: gray;
+      background: $account-dialog-selected;
 
       &.account-revenue {
-        background: lightblue;
+        background: $revenue-clr;
       }
 
       &.account-asset {
-        background: yellow;
+        background: $asset-clr;
       }
 
       &.account-expense {
-        background: orange;
+        background: $expense-clr;
       }
 
     }

@@ -57,19 +57,19 @@ export default {
   }
 
   &.account-asset {
-    background: yellow;
+    background: $asset-clr;
   }
 
   &.account-revenue {
-    background: lightblue;
+    background: $revenue-clr;
   }
 
   &.account-expense {
-    background: orange;
+    background: $expense-clr;
   }
 
   &.account-add {
-    background: darkgray;
+    background: $add-account-btn-clr;
   }
 }
 </style>
