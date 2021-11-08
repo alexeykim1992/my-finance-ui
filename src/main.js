@@ -3,7 +3,7 @@ import App from '@/App';
 import components from '@/components/UI'
 import router from '@/pages/router';
 import store from "@/store";
-import '@/assets/style.scss';
+import css from "@/assets/fontawesome/css/all.min.css";
 
 const app = createApp(App);
 
