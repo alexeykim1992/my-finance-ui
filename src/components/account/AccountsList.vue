@@ -101,6 +101,7 @@ export default {
     padding: 15px;
     width: fit-content;
     border: 1px solid lightgray;
+    background: white;
   }
 }
 </style>

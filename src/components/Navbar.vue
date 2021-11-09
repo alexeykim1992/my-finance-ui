@@ -40,6 +40,7 @@ export default {
 
 <style scoped lang="scss">
 .nav {
+  background: white;
   border-bottom: 1px solid darkgray;
 
   &__content {

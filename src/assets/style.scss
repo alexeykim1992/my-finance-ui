@@ -17,6 +17,11 @@ ul {
   list-style: none;
 }
 
+body {
+  background: url("~@/assets/images/background.png") no-repeat center;
+  background-size: cover;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
