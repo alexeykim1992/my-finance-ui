@@ -25,7 +25,10 @@
         :accounts="getDestinations"
         @toggleShow="toggleDestinations"
         @select-item="selectDestination"/>
-    <button class="add-transaction-dialog__button" @click="createTransaction">{{ buttonTitle }}</button>
+    <button class="add-transaction-dialog__button" @click="createTransaction">
+      <i class="far fa-plus-square" v-show="transaction == null"></i>
+      <i class="far fa-edit" v-show="transaction != null"></i>
+    </button>
   </div>
 </template>
 
@@ -100,9 +103,6 @@ export default {
       today: 'date/getToday',
       getDate: 'date/getDate'
     }),
-    buttonTitle() {
-      return this.transaction === null ? 'Добавить' : 'Изменить';
-    },
     getSources() {
       return [
         ...this.getAccounts('account-revenue'),
@@ -154,8 +154,7 @@ export default {
 <style scoped lang="scss">
 .add-transaction-dialog {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr 2fr;
-  width: 800px;
+  grid-template-columns: 1fr 3fr 1fr 1fr;
 
   &__form {
     display: flex;
@@ -185,17 +184,27 @@ export default {
   }
 
   &__button {
-    font-size: 20px;
+    font-size: 60px;
     font-weight: 600;
     text-transform: uppercase;
-    border: 1px solid darkgray;
+    border: 1px solid transparent;
+    background: none;
 
-    &:hover {
-      background: lightgray;
+    & i {
+      color: black;
+      background: inherit;
+
+      &.fa-edit {
+        margin: 0 -25px 15px 0;
+      }
     }
 
-    &:active {
-      background: darkgray;
+    &:hover i {
+      color: darkgray;
+    }
+
+    &:active i {
+      color: gray;
     }
   }
 

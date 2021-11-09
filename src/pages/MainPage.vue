@@ -66,7 +66,7 @@ export default {
     align-items: center;
 
     &-month{
-      padding: 0 20px;
+      padding: 0 70px 0 20px;
     }
   }
 }
