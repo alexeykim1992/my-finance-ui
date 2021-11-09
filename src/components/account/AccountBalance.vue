@@ -1,12 +1,15 @@
 <template>
   <div class="account-balance" :class="getElement.type">
-    <div class="account-balance__title">{{ getElement.name }}</div>
-    <div class="account-balance__icon" :class="getElement.icon"></div>
-    <div class="account-balance__title"
-         v-show="getElement.type!=='account-add'">
-      {{ getBalance }}
+    <div class="account-balance__container">
+      <div class="account-balance__title">{{ getElement.name }}</div>
+      <div class="account-balance__icon" :class="getElement.icon"></div>
+      <div class="account-balance__title"
+           v-show="getElement.type!=='account-add'">
+        {{ getBalance }}
+      </div>
     </div>
-    <progress class="account-balance__progress" max="100" :value="getProgress(this.accountId)"/>
+    <progress class="account-balance__progress" max="100"
+              :value="getProgress(this.accountId)"/>
   </div>
 </template>
 
@@ -52,20 +55,28 @@ export default {
 
 <style scoped lang="scss">
 .account-balance {
-  padding: 15px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
   width: 120px;
   height: 120px;
+  overflow: hidden;
   border-radius: 5px;
   color: $account-text-clr;
 
   &:hover {
     transform: scale(1.1);
+    box-shadow: 2px 2px 4px 2px gray;
+  }
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
   }
 
   &__icon {
@@ -83,9 +94,11 @@ export default {
     display: block;
     appearance: none;
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
     transform: rotate(-90deg);
   }
 

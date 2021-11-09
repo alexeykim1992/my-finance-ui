@@ -1,5 +1,6 @@
 <template>
-  <div class="account-picker">
+  <div class="account-picker"
+       :class="isShow ? 'opened' : ''">
     <account
         @click="this.$emit('toggleShow')"
         :accountId="pickedAccount"/>
@@ -40,11 +41,18 @@ export default {
 <style scoped lang="scss">
 .account-picker {
   position: relative;
+  z-index: 3;
+
+  &.opened {
+    box-shadow: 3px 3px 3px 2px gray;
+  }
 
   &__grid {
     position: absolute;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 3px 3px 3px 2px gray;
 
     &-item {
       border-left: 1px solid darkgray;
