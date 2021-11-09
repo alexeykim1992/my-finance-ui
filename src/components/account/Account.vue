@@ -43,6 +43,7 @@ export default {
   overflow: hidden;
   width: 120px;
   height: 120px;
+  color: $account-text-clr;
 
   &__icon {
     font-size: 50px;
@@ -70,6 +71,11 @@ export default {
 
   &.account-add {
     background: $add-account-btn-clr;
+    border-radius: 5px;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 </style>

@@ -62,10 +62,10 @@ export default {
   width: 120px;
   height: 120px;
   border-radius: 5px;
+  color: $account-text-clr;
 
   &:hover {
-    border: 1px solid $hover-border;
-    box-shadow: 0 0 7px 4px $hover-shadow;
+    transform: scale(1.1);
   }
 
   &__icon {
