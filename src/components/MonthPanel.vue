@@ -52,7 +52,7 @@ export default {
     font-weight: 700;
     text-align: center;
     text-transform: uppercase;
-    width: 220px;
+    width: 250px;
     margin: 0 25px;
   }
 
