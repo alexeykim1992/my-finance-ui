@@ -1,11 +1,12 @@
 @import "variables";
 @import "grid";
+@import "fonts";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Verdana, serif;
+  font-family: $open-sans-fnt, Verdana, serif;
 }
 
 a {
