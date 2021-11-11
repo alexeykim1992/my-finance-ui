@@ -79,17 +79,17 @@ export default {
     margin: 0 15px 10px 30px;
 
     &-title {
-      font-size: 25px;
+      font-size: 28px;
+      font-weight: 800;
     }
 
     &-total {
-      font-size: 20px;
+      font-size: 22px;
       color: darkgray;
-      font-weight: 300;
 
       &-span {
         color: black;
-        font-weight: 600;
+        font-weight: 700;
       }
     }
   }

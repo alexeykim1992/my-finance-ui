@@ -157,13 +157,14 @@ export default {
   grid-template-columns: 1fr 3fr 1fr 1fr;
 
   &__form {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
 
     &-input {
       font-size: 18px;
       text-align: end;
-      padding: 7px 30px;
+      padding: 5px 30px;
       border: 1px solid lightgray;
 
       &.input-value {

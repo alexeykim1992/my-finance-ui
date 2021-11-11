@@ -48,8 +48,8 @@ export default {
   align-items: center;
 
   &__title {
-    font-size: 23px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 700;
     text-align: center;
     text-transform: uppercase;
     width: 220px;

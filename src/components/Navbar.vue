@@ -55,7 +55,7 @@ export default {
     align-items: flex-end;
 
     &-link {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 600;
       margin-left: 15px;
     }

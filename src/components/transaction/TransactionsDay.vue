@@ -57,16 +57,16 @@ export default {
   &__date {
     text-align: center;
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 700;
     margin: 15px 15px 10px;
   }
 
   &__sum {
     background: bisque;
-    padding: 15px;
+    padding: 7px 20px;
     text-align: right;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 700;
     border: 1px solid darkgray;
 
     &-title {

@@ -81,7 +81,7 @@ export default {
 
   &__value {
     font-size: 30px;
-    font-weight: 800;
+    font-weight: 700;
 
     &.value-asset {
       color: #646464;
