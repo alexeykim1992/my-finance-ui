@@ -106,10 +106,10 @@ export default {
     background: transparent;
 
     & .account-balance__progress {
-      background: $asset-value-clr;
+      background: $asset-progress-clr;
 
       &::-moz-progress-bar {
-        background: $asset-progress-clr;
+        background: $asset-value-clr;
       }
 
       &::-webkit-progress-bar {
@@ -126,10 +126,10 @@ export default {
     background: transparent;
 
     & .account-balance__progress {
-      background: $revenue-value-clr;
+      background: $revenue-progress-clr;
 
       &::-moz-progress-bar {
-        background: $revenue-progress-clr;
+        background: $revenue-value-clr;
       }
 
       &::-webkit-progress-bar {
@@ -146,10 +146,10 @@ export default {
     background: transparent;
 
     & .account-balance__progress {
-      background: $expense-value-clr;
+      background: $expense-progress-clr;
 
       &::-moz-progress-bar {
-        background: $expense-progress-clr;
+        background: $expense-value-clr;
       }
 
       &::-webkit-progress-bar {
