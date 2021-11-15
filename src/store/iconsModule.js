@@ -17,7 +17,7 @@ export const iconsModule = {
     actions: {
         async getIcons({commit}) {
             try {
-                const result = await axios.get('http://localhost:8081/icon');
+                const result = await axios.get('http://' + location.hostname + ':8081/icon');
                 commit('setIconList', result.data);
             } catch (e) {
                 console.error(e);

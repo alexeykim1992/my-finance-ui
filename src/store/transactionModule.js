@@ -75,7 +75,7 @@ export const transactionModule = {
     actions: {
         async fetchTransactions({dispatch, commit, rootState}) {
             try {
-                const response = await axios.get('http://localhost:8081/transaction');
+                const response = await axios.get('http://' + location.hostname + ':8081/transaction');
                 response.data.forEach(transaction => transaction.date = new Date(transaction.date))
                 commit('setTransactionList', response.data);
             } catch (e) {
@@ -84,7 +84,7 @@ export const transactionModule = {
         },
         async addTransaction({dispatch, commit}, transaction) {
             try {
-                const response = await axios.post('http://localhost:8081/transaction', {...transaction});
+                const response = await axios.post('http://' + location.hostname + ':8081/transaction', {...transaction});
                 if (response.data !== -1) {
                     transaction.id = response.data;
                     commit('addTransaction', transaction);
@@ -95,7 +95,7 @@ export const transactionModule = {
         },
         async editTransaction({dispatch, commit}, transaction) {
             try {
-                const response = await axios.put('http://localhost:8081/transaction', {...transaction});
+                const response = await axios.put('http://' + location.hostname + ':8081/transaction', {...transaction});
                 if (response.data !== -1) {
                     commit('editTransaction', transaction);
                 } else console.log('Транзакция не найдена');

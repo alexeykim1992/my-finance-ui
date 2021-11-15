@@ -17,7 +17,7 @@ export const userModule = {
     actions: {
         async getCurrentUser({commit}) {
             try {
-                const result = await axios.get('http://localhost:8081/user');
+                const result = await axios.get('http://' + location.hostname + ':8081/user');
                 commit('setUser', result.data);
             } catch (e) {
                 console.error(e);

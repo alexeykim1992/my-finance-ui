@@ -82,7 +82,7 @@ export const accountModule = {
     actions: {
         async fetchAccounts({state, commit, rootState}) {
             try {
-                const response = await axios.get('http://localhost:8081/account');
+                const response = await axios.get('http://' + location.hostname + ':8081/account');
                 commit('setAccountList', response.data)
             } catch (e) {
                 console.error(e);
@@ -90,7 +90,7 @@ export const accountModule = {
         },
         async addAccount({dispatch, commit}, account) {
             try {
-                const response = await axios.post('http://localhost:8081/account', {...account});
+                const response = await axios.post('http://' + location.hostname + ':8081/account', {...account});
                 if (response.data !== -1) {
                     account.id = response.data;
                     commit('setAccount', account);
@@ -101,7 +101,7 @@ export const accountModule = {
         },
         async editAccount({dispatch, commit}, account) {
             try {
-                const response = await axios.put('http://localhost:8081/account', {...account});
+                const response = await axios.put('http://' + location.hostname + ':8081/account', {...account});
                 if (response.data !== -1) {
                     commit('editAccount', account);
                 } else console.log('Счет не найден')
