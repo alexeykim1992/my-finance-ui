@@ -66,7 +66,7 @@ export default {
       editTransaction: 'transaction/editTransaction'
     }),
     createTransaction() {
-      if (this.newValue.value !== '' && this.date !== '') {
+      if (this.newValue.toValue !== '' && this.date !== '') {
         if (this.transaction === null) {
           this.newValue.id = null;
           this.addTransaction({...this.newValue});
@@ -74,7 +74,7 @@ export default {
           this.editTransaction({...this.newValue});
         }
         this.date = this.today;
-        this.newValue.value = '';
+        this.newValue.toValue = '';
         this.newValue.description = '';
         this.$emit('update:show', false);
       }

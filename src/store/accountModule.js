@@ -26,7 +26,7 @@ export const accountModule = {
         },
         getProgress: (state, getters) => accountId => {
             let account = getters.getAccount(accountId);
-            return account !== undefined && account.limit !== 0
+            return account !== undefined && account.limit !== null && account.limit !== 0
                 ? (getters.getBalance(accountId) / account.limit) * 100 : 100;
         },
         getBalance: (state, getters, rootState) => (accountId, date) => {
@@ -52,13 +52,13 @@ export const accountModule = {
         getDebit: (state, getters, rootState, rootGetters) => (accountId, date) => {
             return rootGetters["transaction/getMonthByDate"](date)
                 .filter(transaction => transaction.to === accountId)
-                .map(transaction => transaction.value)
+                .map(transaction => transaction.toValue)
                 .reduce((a, b) => a + b, 0);
         },
         getCredit: (state, getters, rootState, rootGetters) => (accountId, date) => {
             return rootGetters["transaction/getMonthByDate"](date)
                 .filter(transaction => transaction.from === accountId)
-                .map(transaction => transaction.value)
+                .map(transaction => transaction.toValue)
                 .reduce((a, b) => a + b, 0);
         }
     },

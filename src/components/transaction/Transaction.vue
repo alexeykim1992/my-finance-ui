@@ -10,7 +10,7 @@
       <div
           class="transaction__value"
           :class="transactionType">
-        {{ transaction.value }}
+        {{ transaction.toValue }}
       </div>
       <p class="transaction__description">{{ transaction.description }}</p>
     </div>

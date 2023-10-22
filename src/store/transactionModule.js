@@ -46,7 +46,7 @@ export const transactionModule = {
         getDayBalance: (state, getters) => input => {
             return state.transactions
                 .filter(transaction => transaction.date.toLocaleString() === input.toLocaleString())
-                .map(item => item.value * getters.getTransactionType(item))
+                .map(item => item.toValue * getters.getTransactionType(item))
                 .reduce((a, b) => a + b, 0);
         }
     },
@@ -62,7 +62,7 @@ export const transactionModule = {
                 result.date = new Date(input.date);
                 result.from = input.from;
                 result.to = input.to;
-                result.value = input.value;
+                result.toValue = input.toValue;
                 result.description = input.description;
             } else {
                 console.log('Транзакция не найдена');
